@@ -7,9 +7,13 @@
     "type": "git",
     "url": "git://github.com/bazaarvoice/bv-ui-core"
   },
-  "dependencies": {
+  "scripts": {
+    "lint": "eslint lib test && echo 'No linting errors found'",
+    "test": "tap 'test/unit/**/*.js'"
   },
+  "dependencies": {},
   "devDependencies": {
+    "eslint": "^0.24.1",
+    "tap": "^1.3.1"
   }
 }
-
