@@ -1,0 +1,21 @@
+# Don't store node modules because that's gross
+node_modules
+
+# Numerous always-ignore extensions
+*.diff
+*.err
+*.orig
+*.log
+*.rej
+*.swo
+*.swp
+*.vi
+*~
+*.sass-cache
+*.iml
+
+# Sublime Text
+*.sublime-*
+
+# OSX
+*.DS_Store
