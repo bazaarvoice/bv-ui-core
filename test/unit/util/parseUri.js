@@ -1,10 +1,9 @@
 /**
  * @fileOverview Unit tests for the parseUri utility
  */
-'use strict';
 
 var tap = require('tap');
-var parseUri = require('../../../lib/util/parseUri');
+var parseUri = require('../../../lib/parseUri');
 
 // Test a simple case
 tap.test('Simple URL', function (t) {
@@ -49,5 +48,5 @@ tap.test('Complex URL', function (t) {
   t.equal(parsedUri.authority, 'bob:smith@subdomain.example.com:8080', 'Authority is bob:smith@subdomain.example.com:8080');
   t.equal(parsedUri.protocol, 'https', 'Protocol is https');
   t.equal(parsedUri.source, url, 'Source is original URL');
-  t.same(parsedUri.queryKey, { foo: 'bar', baz: '3' }, 'Query key is empty');
+  t.same(parsedUri.queryKey, { foo : 'bar', baz : '3' }, 'Query key is empty');
 });
