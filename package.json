@@ -10,7 +10,7 @@
   "scripts": {
     "lint": "eslint lib test",
     "test": "tap test",
-    "test": "tap --cov test"
+    "coverage": "tap --cov test"
   },
   "dependencies": {},
   "devDependencies": {
