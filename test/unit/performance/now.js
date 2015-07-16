@@ -1,5 +1,5 @@
 /**
- *  @fileOverview Unit tests for the performance/now module
+ *  @fileOverview Unit tests for the performance/now.js module
  */
 
 var tap = require('tap');

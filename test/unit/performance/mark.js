@@ -1,5 +1,5 @@
 /**
- *  @fileOverview Performance.mark test
+ *  @fileOverview Unit tests for the performance/mark.js module
  */
 var tap = require('tap');
 var perfMark = require('../../../lib/performance/mark.js');
