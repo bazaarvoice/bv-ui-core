@@ -11,3 +11,10 @@ tap.test('Exposeses a now function', function (t) {
   // All tests complete
   t.end();
 });
+
+tap.test('Exposeses a mark function', function (t) {
+  t.type(perfModule.mark, 'function');
+
+  // All tests complete
+  t.end();
+});
