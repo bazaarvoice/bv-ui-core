@@ -6,7 +6,7 @@ Start by creating a fork of this repo and cloning it locally.
 
 Once you have your local clone, run `npm install` in order to install all dependencies.
 
-Once the install completes, run `npm run lint` and `npm run test` to run the linting and testing. If you see no output from the linting, and 100% passing tests from the test execution, then you're good to go.
+Once the install completes, run `npm run lint` and `npm test` to run the linting and testing. If you see no output from the linting, and 100% passing tests from the test execution, then you're good to go.
 
 ## Local Development with another project
 

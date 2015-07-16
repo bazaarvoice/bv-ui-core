@@ -32,7 +32,7 @@ If you see no output, that's a sign that all linting was successful and zero pro
 This project is using [tap](https://github.com/isaacs/node-tap) for its testing, and right now consists of unit tests. There is a `test` npm script that can be used to run all tests.
 
 ```bash
-npm run test
+npm test
 ```
 
 If you wish to see more detailed results, including code coverage results, run the `coverage` npm script.
