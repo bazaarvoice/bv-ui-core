@@ -2,16 +2,41 @@
 
 This repository is for the shared storage of all Bazaarvoice UI code. Right now, there's not much in here, but we'll be fleshing out and adding more modules over time.
 
-## Style Guide
+## Usage
 
-Meet the style as defined by the `.eslintrc` file. The easiest way to tell if you're doing so is to make your changes, `npm run lint`, and see what errors are displayed.
+Using npm, install this module:
 
-## File Structure
+```bash
+npm install --save git+ssh://git@github.com:bazaarvoice/bv-ui-core.git
+```
 
-In general, for any module `foo`, the following files should exist:
+Once installed, you can simply `require` modules out of `lib` as you see fit.
 
-- `lib/foo/index.js`
-- `lib/foo/README.md` (as this will help GitHub auto-render it upon view of the folder)
-- `test/unit/foo/index.js`
+```javascript
+var someModule = require('bv-ui-core/lib/someModule');
+someModule.doThings();
+```
 
-Additionally, a successful run of both the `test` and `lint` npm scripts will be required for code to be accepted.
+## Linting
+
+This project uses eslint, which is installed as part of the dev dependencies. Simply run the `lint` npm script, like so:
+
+```bash
+npm run lint
+```
+
+If you see no output, that's a sign that all linting was successful and zero problems were found.
+
+## Testing
+
+This project is using [tap](https://github.com/isaacs/node-tap) for its testing, and right now consists of unit tests. There is a `test` npm script that can be used to run all tests.
+
+```bash
+npm run test
+```
+
+If you wish to see more detailed results, including code coverage results, run the `coverage` npm script.
+
+```bash
+npm run coverage
+```
