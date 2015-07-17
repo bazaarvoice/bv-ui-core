@@ -54,7 +54,7 @@ This project uses [tape](https://github.com/substack/tape). To run the tests:
 npm test
 ```
 
-To run the tests open in a browser while you are doing development:
+To run the tests in a browser while you are doing development:
 
 ```bash
 npm run dev
