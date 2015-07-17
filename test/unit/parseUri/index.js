@@ -2,11 +2,11 @@
  * @fileOverview Unit tests for the parseUri utility
  */
 
-var tap = require('tap');
+var test = require('tape');
 var parseUri = require('../../../lib/parseUri');
 
 // Test a simple case
-tap.test('Simple URL', function (t) {
+test('Simple URL', function (t) {
   var url = 'http://www.example.com';
   var parsedUri = parseUri(url);
 
@@ -29,7 +29,7 @@ tap.test('Simple URL', function (t) {
 });
 
 // Test an elaborate case
-tap.test('Complex URL', function (t) {
+test('Complex URL', function (t) {
   var url = 'https://bob:smith@subdomain.example.com:8080/path/to/file.html?foo=bar&baz=3#hash';
   var parsedUri = parseUri(url);
 
