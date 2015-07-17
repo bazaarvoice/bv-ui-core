@@ -1,11 +1,15 @@
 /**
  *  @fileOverview Unit tests for the global module
  */
-
-var tap = require('tap');
+var test = require('tape');
 var global = require('../../../lib/global');
 
-tap.test('Should export window object', function (t) {
-  // We don't have a reference to `window` so we can't test this properly
-  // t.equal(global, window);
+test('Should export window', function (t) {
+  // If we have access to the window object, compare against it
+  if (typeof window !== 'undefined') {
+    t.equal(global, window);
+  }
+
+  // All tests complete
+  t.end();
 });
