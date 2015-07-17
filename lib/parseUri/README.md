@@ -1,6 +1,6 @@
 # parseUri
 
-This utility simply allows for the parsing of various pieces out of a URI provided to it. It was originally sourced from [blog.stevenlevithan.com](http://blog.stevenlevithan.com/archives/parseuri) for Firebird some years ago.
+This utility parses a URI and returns an object that provides various parts of the URI. It is an adaptation of code published on  [blog.stevenlevithan.com](http://blog.stevenlevithan.com/archives/parseuri).
 
 ## Usage
 
@@ -11,12 +11,13 @@ var url = 'http://some.example.com';
 var parsedUri = parseUri(url);
 ```
 
-The resulting `parsedUri` object in the above example would have several properties representing the various parts of the provided URI. Rather than list each one, here's a simple example that details the parts you can expect to receive.
+The resulting `parsedUri` object in the above example has properties that represent the various parts of the provided URI.
 
 Given the following URL:
+
 `https://bob:smith@subdomain.example.com:8080/path/to/file.html?foo=bar&baz=3#hash`
 
-The resulting object will look something like this:
+The resulting object will be equivalent to this:
 
 ```javascript
 {
@@ -41,4 +42,4 @@ The resulting object will look something like this:
 }
 ```
 
-Of special note is the `queryKey` property, which gives you a simple object-style key/value pair of the query string parameters.
+Of special note is the `queryKey` property; it provides a simple key/value representation of the query string parameters.

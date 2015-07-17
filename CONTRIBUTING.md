@@ -1,18 +1,72 @@
 # Contributing to bv-ui-core
 
+## Owners
+
+- Rebecca Murphey (@rmurphey)
+
 ## Getting Started
 
-Start by creating a fork of this repo and cloning it locally.
+Start by creating a fork of this repo, cloning it locally, and installing the required Node modules:
 
-Once you have your local clone, run `npm install` in order to install all dependencies.
+```sh
+git clone git@github.com:<yourusername>/bv-ui-core.git
+cd bv-ui-core
+npm install
+```
 
-Once the install completes, run `npm run lint` and `npm test` to run the linting and testing. If you see no output from the linting, and 100% passing tests from the test execution, then you're good to go.
+Verify the installation by running `npm run dev`. This should open Chrome to the test page; you will need to open the browser's console to see the test results.
 
-## Local Development with another project
+If you would like to submit a change to the repo, open a pull request *from a branch on your fork*. Do not create new branches on the main repo.
 
-If you're looking to contribute, odds are good you're working on another project, and working to incorporate new content into `bv-ui-core`. The easiest way to work on both together is through [`npm link`][npm-link]. This command allows you to effectively install a package in your project via a link, instead of a traditional npm installation.
+If you want to submit a new module, be certain to open an issue explaining the rationale for adding the module, as well as the proposed API for the module. **Please do not start the discussion with a pull request.**
 
-Assuming that you've checked out your `bv-ui-core` to `~/code/bv-ui-core` and your project is at `~/code/my-project`, you can run the following commands in the shell to set up the link.
+## Landing Changes
+
+Pull requests should be landed with [git-land](https://github.com/git-land/git-land). **Do not land pull requests using the Github merge button.**
+
+## File Structure
+
+For a module `foo`, the following files should exist:
+
+- `lib/foo/index.js`
+- `lib/foo/README.md`
+- `test/unit/foo/index.js`
+
+## Commit Hooks
+
+This project uses [ghooks](https://github.com/gtramontina/ghooks) to manage Git hooks. The hooks run linting before each commit, and run the tests before each push.
+
+## Style
+
+The coding style for this project is checked with [ESLint](http://eslint.org/), and defined by the .eslintrc file. To run ESLint:
+
+```
+npm run lint
+```
+
+If you see no output, no problems were found.
+
+## Tests
+
+This project uses [tape](https://github.com/substack/tape). To run the tests:
+
+```bash
+npm test
+```
+
+To run the tests in a browser while you are doing development:
+
+```bash
+npm run dev
+```
+
+Note that the results appear in the console, not in the browser itself.
+
+## Local Development with Another Project
+
+If you are working on this project alongside a project that uses it, you will likely want to use [`npm link`][npm-link]. It allows you to install an NPM package in your project from the local file system, rather than pulling the package down from NPM.
+
+Assuming that you've checked out `bv-ui-core` to `~/code/bv-ui-core` and your project is at `~/code/my-project`, you can run the following commands in the shell to get your project to use the local bv-ui-core:
 
 ```bash
 cd ~/code/bv-ui-core
@@ -28,29 +82,6 @@ cd ~/code/my-project
 npm link ../bv-ui-core
 ```
 
-The net result is the same, which is that `bv-ui-core` will be registered as a globally installed package via symbolic link, which you can then link into other packages on your local system.
-
-Please check out the [`npm link` documentation][npm-link] for more details.
+See the [`npm link` documentation][npm-link] for more details.
 
 [npm-link]: https://docs.npmjs.com/cli/link
-
-## Style Guide
-
-Meet the style as defined by the `.eslintrc` file. The easiest way to tell if you're doing so is to make your changes, `npm run lint`, and see what errors are displayed.
-
-## File Structure
-
-In general, for any module `foo`, the following files should exist:
-
-- `lib/foo/index.js`
-- `lib/foo/README.md` (as this will help GitHub auto-render it upon view of the folder)
-- `test/unit/foo/index.js`
-
-Additionally, a successful run of both the `test` and `lint` npm scripts will be required for code to be accepted.
-
-## Commit Hooks
-
-This project uses [ghooks](https://github.com/gtramontina/ghooks) to manage Git hooks. The following should already be in place for you after installation:
-
-- pre-commit: Run linting
-- pre-push: Full test execution
