@@ -2,18 +2,17 @@
  *  @fileOverview Unit tests for the performance/now.js module
  */
 
-var tap = require('tap');
+var test = require('tape');
 var perfNow = require('../../../lib/performance/now.js');
 
-tap.test('Returns a non-negative number', function (t) {
+test('Returns a non-negative number', function (t) {
   var result = perfNow.now();
 
   // Test 1: It returns a number
-  t.type(result, 'number');
+  t.equal(typeof result, 'number');
 
   // Test 2: The number is non-negative
-  var isNonNegative = (result >= 0);
-  t.ok(isNonNegative);
+  t.ok(result >= 0);
 
   // All tests complete
   t.end();
