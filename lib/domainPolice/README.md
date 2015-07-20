@@ -1,41 +1,51 @@
 # domainPolice
 
-The `domainPolice` module provides a simple mechanism to take in an array of objects that represent a known whitelist of domains, as well as a particular URL, and provides information as to whether that domain is an authorized domain, as well as information regarding third-party cookie authorization.
+The `domainPolice` module provides a function that takes in an array of objects that represent a known whitelist of domains, as well as a particular URL, and provides an object with an API to get information about that domain.
 
-## Methods
+The `domainPolice` module provides a function that takes a URL and an array of objects representing a known whitelist of domains, and returns an object with a simple API, representing the state of that URL in the whitelist.
 
-There are two methods on the `domainPolice` module:
-
- - `allowedDomain`: Returns the matching domain from the whitelist, or `undefined` otherwise.
- - `thirdPartyCookieEnabled`: Returns `true` if the domain is found and set to allow third-party cookies, or `false` otherwise.
-
-Both of these methods take the same two arguments:
+## Module arguments
 
  - `url`: The particular URL to be validated as a string.
  - `allowedDomains`: An array of objects representing whitelisted arrays.
 
-### `allowedDomains` format
-
-For both methods, the `allowedDomains` argument is expected to be an array of objects, and each object is expected to have a `domainAddress` property, as well as a `thirdPartyCookieEnabled` property. Here's an example, from the unit tests:
+## Usage
 
 ```javascript
+var domainPolice = require('bv-ui-core/lib/domainPolice');
+
 var allowedDomains = [
   {
-    domainAddress : '.bazaarvoice.com',
+    domain : '.bazaarvoice.com',
     thirdPartyCookieEnabled : true
   },
   {
-    domainAddress : '.localhost',
-    thirdPartyCookieEnabled : false
+    domain : '.localhost',
+    thirdPartyCookieEnabled : false,
+    commentsEnabled : true,
   },
   {
-    domainAddress : 'no-prefixing-dot.foo.com',
-    thirdPartyCookieEnabled : true
+    domain : 'no-prefixing-dot.foo.com',
+    commentsEnabled : true
   }
 ];
+
+var bvCop = domainPolice('http://www.bazaarvoice.com', allowedDomains);
+bvCop.isValid; // => true
+bvCop.get('domain'); // => '.bazaarvoice.com'
+bvCop.get('thirdPartyCookieEnabled'); // => true
+bvCop.get('commentsEnabled'); // => undefined
+
+var nopeCop = domainPolice('http://ww.w.foo.com');
+nopeCop.isValid; // => false
+nopeCop.get('anything'); // => undefined
 ```
 
-The prefixing `.` on the `domainAddress` will open it up to authorize all subdomains as well. Given the above example, the following domains are all allowed:
+### `allowedDomains` format
+
+`allowedDomains` is an array of objects, and each object is expected to have a `domain` property. It may also contain any other arbitrary properties as desired for later lookup.
+
+The prefixing `.` on the `domain` will allow it to match all subdomains as well. Given the above example, the following domains are all valid:
 
 - `bazaarvoice.com`
 - `subdomain.bazaarvoice.com`
