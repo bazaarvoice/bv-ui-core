@@ -1,98 +1,140 @@
 /**
  * @fileOverview Unit tests for the Domain Police module
  */
-var tap = require('tap');
+var test = require('tape');
 var domainPolice = require('../../../lib/domainPolice');
 
 // For each of these domains:
 // - domain: The domain to test against.
-// - value: The expected return value from domainPolice.
+// - matchedDomain: The expected return value of 'domain'
+// - isValid: The expected return value from domainPolice.
 var domainsToTest = [
-  { domain : 'localhost.bazaarvoice.com', allowed : '.bazaarvoice.com', cookie : true },
-  { domain : 'foo.localhost.bazaarvoice.com', allowed : '.bazaarvoice.com', cookie : true },
-  { domain : 'no-prefixing-dot.foo.com', allowed : 'no-prefixing-dot.foo.com', cookie : true },
-  { domain : 'foo.com', allowed : undefined, cookie : false },
-  { domain : 'bar.com', allowed : undefined, cookie : false },
-  { domain : 'ec2-54-234-131-1.compute-1.amazonaws.com', allowed : '.ec2-54-234-131-1.compute-1.amazonaws.com', cookie : false },
-  { domain : 'www.ec2-54-234-131-1.compute-1.amazonaws.com', allowed : '.ec2-54-234-131-1.compute-1.amazonaws.com', cookie : false },
-  { domain : 'compute-1.amazonaws.com', allowed : undefined, cookie : false },
-  { domain : 'localhost', allowed : '.localhost', cookie : false },
-  // Note that for IP tests, valid IPs should return without the leading period.
-  { domain : '172.16.0.5', allowed : '172.16.0.5', cookie : true },
-  { domain : '192.168.10.10', allowed : undefined, cookie : false }
+  {
+    domain : 'localhost.bazaarvoice.com',
+    matchedDomain : '.bazaarvoice.com',
+    isValid : true,
+    thirdPartyCookieEnabled : true,
+    commentsEnabled : true
+  },
+  {
+    domain : 'foo.localhost.bazaarvoice.com',
+    matchedDomain : '.bazaarvoice.com',
+    isValid : true,
+    thirdPartyCookieEnabled : true,
+    commentsEnabled : true
+  },
+  {
+    domain : 'no-prefixing-dot.foo.com',
+    matchedDomain : 'no-prefixing-dot.foo.com',
+    isValid : true,
+    thirdPartyCookieEnabled : true
+  },
+  {
+    domain : 'foo.com',
+    matchedDomain : undefined,
+    isValid : false
+  },
+  {
+    domain : 'bar.com',
+    matchedDomain : undefined,
+    isValid : false
+  },
+  {
+    domain : 'ec2-54-234-131-1.compute-1.amazonaws.com',
+    matchedDomain : '.ec2-54-234-131-1.compute-1.amazonaws.com',
+    isValid : true,
+    thirdPartyCookieEnabled : false,
+    commentsEnabled : true
+  },
+  {
+    domain : 'www.ec2-54-234-131-1.compute-1.amazonaws.com',
+    matchedDomain : '.ec2-54-234-131-1.compute-1.amazonaws.com',
+    isValid : true,
+    thirdPartyCookieEnabled : false,
+    commentsEnabled : true
+  },
+  {
+    domain : 'compute-1.amazonaws.com',
+    matchedDomain : undefined,
+    isValid : false
+  },
+  {
+    domain : 'localhost',
+    matchedDomain : '.localhost',
+    isValid : true,
+    thirdPartyCookieEnabled : false
+  },
+  {
+    domain : '172.16.0.5',
+    matchedDomain : '172.16.0.5',
+    isValid : true,
+    thirdPartyCookieEnabled : true,
+    commentsEnabled : false
+  },
+  {
+    domain : '192.168.10.10',
+    matchedDomain : undefined,
+    isValid : false
+  }
 ];
 
+// There is very intentional variation on what each domain in the allowedDomains set includes,
+// in order to make testing more interesting
 var allowedDomains = [
   {
-    domainAddress : '.bazaarvoice.com',
-    thirdPartyCookieEnabled : true
+    domain : '.bazaarvoice.com',
+    thirdPartyCookieEnabled : true,
+    commentsEnabled : true
   },
   {
-    domainAddress : '.ec2-54-234-131-1.compute-1.amazonaws.com',
+    domain : '.ec2-54-234-131-1.compute-1.amazonaws.com',
+    thirdPartyCookieEnabled : false,
+    commentsEnabled : true
+  },
+  {
+    domain : '.172.16.0.5',
+    thirdPartyCookieEnabled : true,
+    commentsEnabled : false
+  },
+  {
+    domain : '.localhost',
     thirdPartyCookieEnabled : false
   },
   {
-    domainAddress : '.172.16.0.5',
-    thirdPartyCookieEnabled : true
-  },
-  {
-    domainAddress : '.localhost',
-    thirdPartyCookieEnabled : false
-  },
-  {
-    domainAddress : 'no-prefixing-dot.foo.com',
+    domain : 'no-prefixing-dot.foo.com',
     thirdPartyCookieEnabled : true
   }
 ];
 
-var domainUnderTest;
-var domain;
-var httpDomain;
-var httpsDomain;
-var httpPortDomain;
-var httpsPortDomain;
-var domainAllowed;
-var verb;
-var cookieEnabled;
+// A simple function used to test a domain in the above domainsToTest
+function testDomain(domainUnderTest) {
+  var domain = domainUnderTest.domain;
 
-tap.test('Testing allowedDomain', function (t) {
-  for (var i = 0, l = domainsToTest.length; i < l; i++) {
-    // Pull some values
-    domainUnderTest = domainsToTest[i];
-    domain = domainUnderTest.domain;
-    domainAllowed = domainUnderTest.allowed;
-    cookieEnabled = domainUnderTest.cookie;
+  // Domain variations to test
+  var domains = [
+    domain,
+    'http://' + domain,
+    'https://' + domain,
+    'http://' + domain + ':4000',
+    'https://' + domain + ':8000'
+  ];
 
-    // Set up domains for use in testing
-    httpDomain = 'http://' + domain;
-    httpsDomain = 'https://' + domain;
-    httpPortDomain = httpDomain + ':4000';
-    httpsPortDomain = httpsDomain + ':8000';
+  test('Testing ' + domain, function (t) {
+    var dp;
+    for (var i = 0, l = domains.length; i < l; i++) {
+      dp = domainPolice(domains[i], allowedDomains);
 
-    // For Allowed Domain Testing
-    verb = typeof domainAllowed === 'undefined' ? 'disallow' : 'allow';
+      t.equal(dp.isValid, domainUnderTest.isValid, 'Domain isValid === ' + domainUnderTest.isValid);
+      t.equal(dp.get('domain'), domainUnderTest.matchedDomain, 'domain is ' + domainUnderTest.matchedDomain);
+      t.equal(dp.get('thirdPartyCookieEnabled'), domainUnderTest.thirdPartyCookieEnabled, 'thirdPartyCookieEnabled is ' + domainUnderTest.thirdPartyCookieEnabled);
+      t.equal(dp.get('commentsEnabled'), domainUnderTest.commentsEnabled, 'commentsEnabled is ' + domainUnderTest.commentsEnabled);
+    }
 
-    t.test('Testing ' + domain + ' for allowance', function (tt) {
-      tt.equal(domainPolice.allowedDomain(domain, allowedDomains), domainAllowed, 'should ' + verb + ' ' + domain + ' without protocol or port');
-      tt.equal(domainPolice.allowedDomain(httpDomain, allowedDomains), domainAllowed, 'should ' + verb + ' ' + domain + ' as HTTP with no port');
-      tt.equal(domainPolice.allowedDomain(httpsDomain, allowedDomains), domainAllowed, 'should ' + verb + ' ' + domain + ' as HTTPS with no port');
-      tt.equal(domainPolice.allowedDomain(httpPortDomain, allowedDomains), domainAllowed, 'should ' + verb + ' ' + domain + ' as HTTP with a port of 4000');
-      tt.equal(domainPolice.allowedDomain(httpsPortDomain), domainAllowed, 'should ' + verb + ' ' + domain + ' as HTTPS with a port of 8000');
-      tt.end();
-    });
+    t.end();
+  });
+}
 
-    // For Third Party Cookies Enabled Testing
-    verb = cookieEnabled ? 'disallow' : 'allow';
-
-    t.test('Testing ' + domain + ' for third party cookies', function (tt) {
-      tt.equal(domainPolice.thirdPartyCookieEnabled(domain, allowedDomains), cookieEnabled, 'should ' + verb + ' cookies on ' + domain + ' without protocol or port');
-      tt.equal(domainPolice.thirdPartyCookieEnabled(httpDomain, allowedDomains), cookieEnabled, 'should ' + verb + ' cookies on ' + domain + ' as HTTP with no port');
-      tt.equal(domainPolice.thirdPartyCookieEnabled(httpsDomain, allowedDomains), cookieEnabled, 'should ' + verb + ' cookies on ' + domain + ' as HTTPS with no port');
-      tt.equal(domainPolice.thirdPartyCookieEnabled(httpPortDomain, allowedDomains), cookieEnabled, 'should ' + verb + ' cookies on ' + domain + ' as HTTP with a port of 4000');
-      tt.equal(domainPolice.thirdPartyCookieEnabled(httpsPortDomain), cookieEnabled, 'should ' + verb + ' cookies on ' + domain + ' as HTTPS with a port of 8000');
-      tt.end();
-    });
-  }
-
-  t.end();
-});
+// Run the tests on each domain
+for (var i = 0, l = domainsToTest.length; i < l; i++) {
+  testDomain(domainsToTest[i]);
+}
