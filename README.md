@@ -23,4 +23,4 @@ var someModule = require('bv-ui-core/lib/someModule');
 someModule.doThings();
 ```
 
-For details on how to use individual modules, see the README inside the module's  directory.
+For details on how to use individual modules, see the README inside the module's directory.
