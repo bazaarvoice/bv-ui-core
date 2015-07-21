@@ -107,7 +107,7 @@ var allowedDomains = [
 ];
 
 // A simple function used to test a domain in the above domainsToTest
-function testDomain(domainUnderTest) {
+function testDomain (domainUnderTest) {
   var domain = domainUnderTest.domain;
 
   // Domain variations to test
