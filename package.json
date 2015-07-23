@@ -1,7 +1,7 @@
 {
   "name": "bv-ui-core",
   "private": true,
-  "version": "0.0.0-pre-anything",
+  "version": "0.1.0",
   "description": "Bazaarvoice UI-related JavaScript",
   "repository": {
     "type": "git",
