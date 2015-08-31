@@ -3,6 +3,8 @@
 ## Owners
 
 - Rebecca Murphey (@rmurphey)
+- Reason (@reason-bv)
+- Brian Sinclair (@brianarn)
 
 ## Getting Started
 
@@ -18,7 +20,21 @@ Verify the installation by running `npm run dev`. This should open Chrome to the
 
 If you would like to submit a change to the repo, open a pull request *from a branch on your fork*. Do not create new branches on the main repo.
 
+## Adding New Modules
+
 If you want to submit a new module, be certain to open an issue explaining the rationale for adding the module, as well as the proposed API for the module. **Please do not start the discussion with a pull request.**
+
+Given that the modules in this repo are intended for use in user interfaces, please be extremely mindful of adding dependencies. Wherever possible, a module should allow dependencies to be passed to it as arguments:
+
+```js
+module.exports = function myModule ($) {
+    return {
+        awesome : function (arg) {
+            return $(arg);
+        }
+    };
+};
+```
 
 ## Landing Changes
 
@@ -26,7 +42,7 @@ Pull requests should be landed with [git-land](https://github.com/git-land/git-l
 
 ## File Structure
 
-For a module `foo`, the following files should exist:
+For a module `foo`, *at least* the following files should exist:
 
 - `lib/foo/index.js`
 - `lib/foo/README.md`
