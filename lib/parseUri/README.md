@@ -6,7 +6,7 @@ the URI. It is an adaptation of code published on [blog.stevenlevithan.com][1].
 ## Usage
 
 ```javascript
-var parseUri = require('bv-ui-core/lib/util/parseUri');
+var parseUri = require('bv-ui-core/lib/parseUri');
 var url = 'http://some.example.com';
 
 var parsedUri = parseUri(url);

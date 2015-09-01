@@ -42,6 +42,7 @@ module's directory.
 - [cookie](./lib/cookie)
 - [date.now](./lib/date.now)
 - [domainPolice](./lib/domainPolice)
+- [evented](./lib/evented)
 - [global](./lib/global)
 - [parseUri](./lib/parseUri)
 - [performance](./lib/performance)
