@@ -44,6 +44,7 @@ module's directory.
 - [domainPolice](./lib/domainPolice)
 - [evented](./lib/evented)
 - [global](./lib/global)
+- [ie](./lib/ie)
 - [parseUri](./lib/parseUri)
 - [performance](./lib/performance)
 
