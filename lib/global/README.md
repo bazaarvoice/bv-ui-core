@@ -1,6 +1,6 @@
 # Global
 
-Exposes the browser's `window` object for safe use elsewhere
+Exposes the browser's `window` object for safe use elsewhere.
 
 ## Usage
 ```javascript

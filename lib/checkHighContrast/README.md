@@ -21,6 +21,6 @@ approach anytime soon is probably small.
 var checkHighContrast = require('checkHighContrast');
 
 if( checkHighContrast(body) ) {
-... setup alternate styles ...
+  // ... setup alternative styles here ...
 }
 ```
