@@ -3,7 +3,7 @@
 # bv-ui-core
 
 This project provides a central location for common Bazaarvoice UI code. It is
-intended to be installed into a project via npm. Individual modules are authored
+intended to be installed into a project via NPM. Individual modules are authored
 as CommonJS modules, to be consumed by Webpack or another build tool that can
 ingest CommonJS.
 
@@ -14,7 +14,7 @@ details on contributing to this repo.
 
 You will need NPM to add this to your project; it is installed when you install
 Node, so it is likely that you already have it. If not, you can install Node
-using an [installer][2], or by using your favorite package manater (such as
+using an [installer][2], or by using your favorite package manager (such as
 Homebrew).
 
 Once you have NPM, you can install bv-ui-core as follows:
