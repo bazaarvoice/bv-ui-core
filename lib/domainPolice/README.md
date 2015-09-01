@@ -1,8 +1,8 @@
 # domainPolice
 
-The `domainPolice` module provides a function that takes in an array of objects that represent a known whitelist of domains, as well as a particular URL, and provides an object with an API to get information about that domain.
-
-The `domainPolice` module provides a function that takes a URL and an array of objects representing a known whitelist of domains, and returns an object with a simple API, representing the state of that URL in the whitelist.
+The `domainPolice` module provides a function that takes a URL and an array of
+objects representing a known whitelist of domains, and returns an object with a
+simple API, representing the state of that URL in the whitelist.
 
 ## Module arguments
 
@@ -43,9 +43,12 @@ nopeCop.get('anything'); // => undefined
 
 ### `allowedDomains` format
 
-`allowedDomains` is an array of objects, and each object is expected to have a `domain` property. It may also contain any other arbitrary properties as desired for later lookup.
+`allowedDomains` is an array of objects, and each object is expected to have a
+`domain` property. It may also contain any other arbitrary properties as desired
+for later lookup.
 
-The prefixing `.` on the `domain` will allow it to match all subdomains as well. Given the above example, the following domains are all valid:
+Prefixing `.` on the `domain` will allow it to match all subdomains as well.
+Given the above example, the following domains are all valid:
 
 - `bazaarvoice.com`
 - `subdomain.bazaarvoice.com`

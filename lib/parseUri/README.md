@@ -1,6 +1,7 @@
 # parseUri
 
-This utility parses a URI and returns an object that provides various parts of the URI. It is an adaptation of code published on  [blog.stevenlevithan.com](http://blog.stevenlevithan.com/archives/parseuri).
+This utility parses a URI and returns an object that provides various parts of
+the URI. It is an adaptation of code published on [blog.stevenlevithan.com][1].
 
 ## Usage
 
@@ -11,7 +12,8 @@ var url = 'http://some.example.com';
 var parsedUri = parseUri(url);
 ```
 
-The resulting `parsedUri` object in the above example has properties that represent the various parts of the provided URI.
+The resulting `parsedUri` object in the above example has properties that
+represent the various parts of the provided URI.
 
 Given the following URL:
 
@@ -42,4 +44,7 @@ The resulting object will be equivalent to this:
 }
 ```
 
-Of special note is the `queryKey` property; it provides a simple key/value representation of the query string parameters.
+Of special note is the `queryKey` property; it provides a simple key/value
+representation of the query string parameters.
+
+[1]: http://blog.stevenlevithan.com/archives/parseuri
