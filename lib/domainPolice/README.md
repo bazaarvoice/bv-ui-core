@@ -16,17 +16,17 @@ var domainPolice = require('bv-ui-core/lib/domainPolice');
 
 var allowedDomains = [
   {
-    domain : '.bazaarvoice.com',
-    thirdPartyCookieEnabled : true
+    domain: '.bazaarvoice.com',
+    thirdPartyCookieEnabled: true
   },
   {
-    domain : '.localhost',
-    thirdPartyCookieEnabled : false,
-    commentsEnabled : true,
+    domain: '.localhost',
+    thirdPartyCookieEnabled: false,
+    commentsEnabled: true,
   },
   {
-    domain : 'no-prefixing-dot.foo.com',
-    commentsEnabled : true
+    domain: 'no-prefixing-dot.foo.com',
+    commentsEnabled: true
   }
 ];
 

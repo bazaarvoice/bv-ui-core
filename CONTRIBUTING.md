@@ -29,7 +29,7 @@ Given that the modules in this repo are intended for use in user interfaces, ple
 ```js
 module.exports = function myModule ($) {
     return {
-        awesome : function (arg) {
+        awesome: function (arg) {
             return $(arg);
         }
     };

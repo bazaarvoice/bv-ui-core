@@ -8,7 +8,7 @@
     "url": "git://github.com/bazaarvoice/bv-ui-core"
   },
   "scripts": {
-    "lint": "eslint lib test",
+    "lint": "eslint karma.conf.js lib test",
     "test": "./node_modules/karma/bin/karma start --single-run --browsers PhantomJS",
     "dev": "./node_modules/karma/bin/karma start --browsers Chrome"
   },
@@ -32,7 +32,7 @@
   },
   "config": {
     "ghooks": {
-      "pre-commit": "node_modules/.bin/eslint lib test",
+      "pre-commit": "npm run lint",
       "pre-push": "npm run lint && npm test"
     }
   }

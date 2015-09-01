@@ -10,71 +10,71 @@ var domainPolice = require('../../../lib/domainPolice');
 // - isValid: The expected return value from domainPolice.
 var domainsToTest = [
   {
-    domain : 'localhost.bazaarvoice.com',
-    matchedDomain : '.bazaarvoice.com',
-    isValid : true,
-    thirdPartyCookieEnabled : true,
-    commentsEnabled : true
+    domain: 'localhost.bazaarvoice.com',
+    matchedDomain: '.bazaarvoice.com',
+    isValid: true,
+    thirdPartyCookieEnabled: true,
+    commentsEnabled: true
   },
   {
-    domain : 'foo.localhost.bazaarvoice.com',
-    matchedDomain : '.bazaarvoice.com',
-    isValid : true,
-    thirdPartyCookieEnabled : true,
-    commentsEnabled : true
+    domain: 'foo.localhost.bazaarvoice.com',
+    matchedDomain: '.bazaarvoice.com',
+    isValid: true,
+    thirdPartyCookieEnabled: true,
+    commentsEnabled: true
   },
   {
-    domain : 'no-prefixing-dot.foo.com',
-    matchedDomain : 'no-prefixing-dot.foo.com',
-    isValid : true,
-    thirdPartyCookieEnabled : true
+    domain: 'no-prefixing-dot.foo.com',
+    matchedDomain: 'no-prefixing-dot.foo.com',
+    isValid: true,
+    thirdPartyCookieEnabled: true
   },
   {
-    domain : 'foo.com',
-    matchedDomain : undefined,
-    isValid : false
+    domain: 'foo.com',
+    matchedDomain: undefined,
+    isValid: false
   },
   {
-    domain : 'bar.com',
-    matchedDomain : undefined,
-    isValid : false
+    domain: 'bar.com',
+    matchedDomain: undefined,
+    isValid: false
   },
   {
-    domain : 'ec2-54-234-131-1.compute-1.amazonaws.com',
-    matchedDomain : '.ec2-54-234-131-1.compute-1.amazonaws.com',
-    isValid : true,
-    thirdPartyCookieEnabled : false,
-    commentsEnabled : true
+    domain: 'ec2-54-234-131-1.compute-1.amazonaws.com',
+    matchedDomain: '.ec2-54-234-131-1.compute-1.amazonaws.com',
+    isValid: true,
+    thirdPartyCookieEnabled: false,
+    commentsEnabled: true
   },
   {
-    domain : 'www.ec2-54-234-131-1.compute-1.amazonaws.com',
-    matchedDomain : '.ec2-54-234-131-1.compute-1.amazonaws.com',
-    isValid : true,
-    thirdPartyCookieEnabled : false,
-    commentsEnabled : true
+    domain: 'www.ec2-54-234-131-1.compute-1.amazonaws.com',
+    matchedDomain: '.ec2-54-234-131-1.compute-1.amazonaws.com',
+    isValid: true,
+    thirdPartyCookieEnabled: false,
+    commentsEnabled: true
   },
   {
-    domain : 'compute-1.amazonaws.com',
-    matchedDomain : undefined,
-    isValid : false
+    domain: 'compute-1.amazonaws.com',
+    matchedDomain: undefined,
+    isValid: false
   },
   {
-    domain : 'localhost',
-    matchedDomain : '.localhost',
-    isValid : true,
-    thirdPartyCookieEnabled : false
+    domain: 'localhost',
+    matchedDomain: '.localhost',
+    isValid: true,
+    thirdPartyCookieEnabled: false
   },
   {
-    domain : '172.16.0.5',
-    matchedDomain : '172.16.0.5',
-    isValid : true,
-    thirdPartyCookieEnabled : true,
-    commentsEnabled : false
+    domain: '172.16.0.5',
+    matchedDomain: '172.16.0.5',
+    isValid: true,
+    thirdPartyCookieEnabled: true,
+    commentsEnabled: false
   },
   {
-    domain : '192.168.10.10',
-    matchedDomain : undefined,
-    isValid : false
+    domain: '192.168.10.10',
+    matchedDomain: undefined,
+    isValid: false
   }
 ];
 
@@ -82,27 +82,27 @@ var domainsToTest = [
 // in order to make testing more interesting
 var allowedDomains = [
   {
-    domain : '.bazaarvoice.com',
-    thirdPartyCookieEnabled : true,
-    commentsEnabled : true
+    domain: '.bazaarvoice.com',
+    thirdPartyCookieEnabled: true,
+    commentsEnabled: true
   },
   {
-    domain : '.ec2-54-234-131-1.compute-1.amazonaws.com',
-    thirdPartyCookieEnabled : false,
-    commentsEnabled : true
+    domain: '.ec2-54-234-131-1.compute-1.amazonaws.com',
+    thirdPartyCookieEnabled: false,
+    commentsEnabled: true
   },
   {
-    domain : '.172.16.0.5',
-    thirdPartyCookieEnabled : true,
-    commentsEnabled : false
+    domain: '.172.16.0.5',
+    thirdPartyCookieEnabled: true,
+    commentsEnabled: false
   },
   {
-    domain : '.localhost',
-    thirdPartyCookieEnabled : false
+    domain: '.localhost',
+    thirdPartyCookieEnabled: false
   },
   {
-    domain : 'no-prefixing-dot.foo.com',
-    thirdPartyCookieEnabled : true
+    domain: 'no-prefixing-dot.foo.com',
+    thirdPartyCookieEnabled: true
   }
 ];
 

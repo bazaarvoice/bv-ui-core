@@ -1,7 +1,9 @@
-// Karma configuration
-var webpack = require('webpack');
+/**
+ * @fileOverview
+ * Karma configuration.
+ */
 
-module.exports = function(config) {
+module.exports = function (config) {
   config.set({
 
     plugins: [
@@ -42,7 +44,7 @@ module.exports = function(config) {
     },
 
     webpack: {
-      node : {
+      node: {
         fs: 'empty'
       },
       // https://github.com/deepsweet/istanbul-instrumenter-loader allows
@@ -94,5 +96,5 @@ module.exports = function(config) {
     // Continuous Integration mode
     // if true, Karma captures browsers, runs the tests and exits
     singleRun: false
-  })
+  });
 };

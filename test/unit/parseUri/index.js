@@ -48,5 +48,5 @@ test('Complex URL', function (t) {
   t.equal(parsedUri.authority, 'bob:smith@subdomain.example.com:8080', 'Authority is bob:smith@subdomain.example.com:8080');
   t.equal(parsedUri.protocol, 'https', 'Protocol is https');
   t.equal(parsedUri.source, url, 'Source is original URL');
-  t.same(parsedUri.queryKey, { foo : 'bar', baz : '3' }, 'Query key is empty');
+  t.same(parsedUri.queryKey, { foo: 'bar', baz: '3' }, 'Query key is empty');
 });
