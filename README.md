@@ -39,6 +39,7 @@ module's directory.
 
 - [body](./lib/body)
 - [checkHighContrast](./lib/checkHighContrast)
+- [cookie](./lib/cookie)
 - [date.now](./lib/date.now)
 - [domainPolice](./lib/domainPolice)
 - [global](./lib/global)
