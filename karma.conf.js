@@ -15,11 +15,11 @@ module.exports = function (config) {
       require('karma-coverage')
     ],
 
-    // base path that will be used to resolve all patterns (eg. files, exclude)
+    // Base path that will be used to resolve all patterns (eg. files, exclude).
     basePath: '',
 
-    // frameworks to use
-    // available frameworks: https://npmjs.org/browse/keyword/karma-adapter
+    // Frameworks to use.
+    // See: https://npmjs.org/browse/keyword/karma-adapter
     frameworks: ['mocha', 'chai'],
 
     client: {
@@ -30,18 +30,28 @@ module.exports = function (config) {
       }
     },
 
-    // list of files / patterns to load in the browser
+    // list of files / patterns to load in the browser.
     files: [
+      // Loaded into the browser test page.
       'test/unit/mochaInit.js',
-      'test/unit/**/*.spec.js'
+      'test/unit/**/*.spec.js',
+
+      // Made available but not loaded. Note that the path for loading these
+      // files is prefixed with 'base/'.
+      {
+        pattern: 'test/fixtures/**',
+        included: false,
+        served: true,
+        watched: true,
+        nocache: true
+      }
     ],
 
-    // list of files to exclude
-    exclude: [
-    ],
+    // List of files to exclude.
+    exclude: [],
 
-    // preprocess matching files before serving them to the browser
-    // available preprocessors: https://npmjs.org/browse/keyword/karma-preprocessor
+    // Preprocess matching files before serving them to the browser.
+    // See: https://npmjs.org/browse/keyword/karma-preprocessor
     preprocessors: {
       'test/**/*.js': ['webpack']
     },
@@ -56,7 +66,7 @@ module.exports = function (config) {
         fs: 'empty'
       },
       // https://github.com/deepsweet/istanbul-instrumenter-loader allows
-      // code coverage of just the things we want
+      // code coverage of just the things we want.
       module: {
         postLoaders: [{
           test: /\.js$/,
@@ -70,33 +80,39 @@ module.exports = function (config) {
       noInfo: true
     },
 
-    // test results reporter to use
-    // possible values: 'dots', 'progress'
-    // available reporters: https://npmjs.org/browse/keyword/karma-reporter
+    // Test results reporter to use. Possible values: 'dots', 'progress'.
+    // See: https://npmjs.org/browse/keyword/karma-reporter
     reporters: [
       'dots',
       'coverage'
     ],
 
-    // web server port
+    // Web server port.
     port: 9876,
 
-    // enable / disable colors in the output (reporters and logs)
+    // Enable / disable colors in the output (reporters and logs).
     colors: true,
 
-    // level of logging
-    // possible values: config.LOG_DISABLE || config.LOG_ERROR || config.LOG_WARN || config.LOG_INFO || config.LOG_DEBUG
+    // Level of logging.
+    //
+    // possible values:
+    //   config.LOG_DISABLE
+    //   config.LOG_ERROR
+    //   config.LOG_WARN
+    //   config.LOG_INFO
+    //   config.LOG_DEBUG
     logLevel: config.LOG_INFO,
 
-    // enable / disable watching file and executing tests whenever any file changes
+    // Enable / disable watching file and executing tests whenever any file
+    // changes.
     autoWatch: true,
 
-    // start these browsers
-    // available browser launchers: https://npmjs.org/browse/keyword/karma-launcher
+    // Start these browsers.
+    // See: https://npmjs.org/browse/keyword/karma-launcher
     browsers: ['Chrome'],
 
-    // Continuous Integration mode
-    // if true, Karma captures browsers, runs the tests and exits
+    // Continuous Integration mode. If true, Karma captures browsers, runs the
+    // tests and exits.
     singleRun: false
   });
 };

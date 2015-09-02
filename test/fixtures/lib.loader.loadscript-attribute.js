@@ -1,0 +1,3 @@
+/* global libLoaderAttributeTestCallback: false */
+
+libLoaderAttributeTestCallback();
