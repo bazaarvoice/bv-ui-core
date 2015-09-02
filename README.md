@@ -45,6 +45,7 @@ module's directory.
 - [evented](./lib/evented)
 - [global](./lib/global)
 - [ie](./lib/ie)
+- [loader](./lib/loader)
 - [parseUri](./lib/parseUri)
 - [performance](./lib/performance)
 
