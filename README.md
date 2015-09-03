@@ -46,6 +46,7 @@ module's directory.
 - [global](./lib/global)
 - [ie](./lib/ie)
 - [loader](./lib/loader)
+- [namespacer](./lib/namespacer)
 - [parseUri](./lib/parseUri)
 - [performance](./lib/performance)
 
