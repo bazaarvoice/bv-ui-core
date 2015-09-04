@@ -9,6 +9,7 @@ module.exports = function (config) {
     plugins: [
       require('karma-mocha'),
       require('karma-chai'),
+      require('karma-sinon'),
       require('karma-webpack'),
       require('karma-chrome-launcher'),
       require('karma-phantomjs-launcher'),
@@ -20,7 +21,7 @@ module.exports = function (config) {
 
     // Frameworks to use.
     // See: https://npmjs.org/browse/keyword/karma-adapter
-    frameworks: ['mocha', 'chai'],
+    frameworks: ['mocha', 'chai', 'sinon'],
 
     client: {
       mocha: {
