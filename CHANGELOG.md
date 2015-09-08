@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.5.0
+
+* Add namespacer and application modules.
+
 ## 0.4.0
 
 * Use Mocha for tests.
