@@ -49,6 +49,7 @@ module's directory.
 - [namespacer](./lib/namespacer)
 - [parseUri](./lib/parseUri)
 - [performance](./lib/performance)
+- [pixelsDisplayed](./lib/pixelsDisplayed)
 
 [1]: ./CONTRIBUTING.md
 [2]: https://nodejs.org/download/
