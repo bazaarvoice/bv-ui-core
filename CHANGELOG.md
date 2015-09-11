@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.6.0
+
+* Add pixelsDisplayed module.
+
 ## 0.5.0
 
 * Add namespacer and application modules.
