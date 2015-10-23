@@ -10,7 +10,6 @@ var Logger = require('bv-ui-core/lib/logger');
 Logger.<method>('Hello, world!') // console.log('Hello, world!')
 ```
 
-
 ## Other Methods
 ### Logger.setLogLevel
 
@@ -57,3 +56,10 @@ Logger.assert(() => {
 Logger.assert(true === false, 'Obviously, I failed.');
 ```
 
+##Bookmarklet
+
+You can use the following bookmarklet in a browser to specify your loglevel. Save the below script as a bookmark and click on it when you want to modify the stored cookie value.
+
+```javascript
+javascript:(function() { var val = prompt('Enter log level (From -1 to 4)'); if (!val && val !== 0) { return; } document.cookie='_bvui_debug=logLevel:' + val; }());
+```
