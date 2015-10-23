@@ -1,6 +1,6 @@
 # logger
 
-The `logger` module provides an object that wraps various console logging methods safely. The default level is INFO, but it is recommended that you set this according to your environment.
+The `logger` module provides an object that wraps various console logging methods safely. The default level is INFO, but it is recommended that you set this according to your environment either at build time or by a cookie in the browser in the format `_bvui_debug=loglevel:4`.
 
 ## Usage
 
