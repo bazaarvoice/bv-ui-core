@@ -16,7 +16,7 @@ it as a property to a namespace:
 ```js
 var Application = require('bv-ui-core/lib/application');
 var loader = require('bv-ui-core/lib/loader');
-var namespacer = require('bv-ui-core/lib/loader');
+var namespacer = require('bv-ui-core/lib/namespacer');
 var config = require('json!config.json');
 
 // Creates a namespace at window.APP and an application object at
