@@ -15,7 +15,7 @@ The loader module provides the following methods:
 ```js
 var loader = require('bv-ui-core/lib/loader');
 
-var promise = loader.loadScript('/scripts/main.js', function (err) {
+loader.loadScript('/scripts/main.js', function (err) {
   if (!err) {
     console.log('it worked');
   }
