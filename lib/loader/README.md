@@ -4,8 +4,7 @@ The loader module provides the following methods:
 
 - `loadScript(url, [options], [callback])`: Loads the script at the provided
   URL in a non-blocking manner, and executes a Node-style callback (if
-  provided) when the script is loaded or fails to load. Also returns a promise
-  that will be resolved if the script loads, and rejected if it does not. A
+  provided) when the script is loaded or fails to load. A
   `timeout` value in milliseconds can be provided via the `options` argument.
 - `loadStyleSheet(url, [options], [callback])`: Loads the CSS at the provided
   URL in a non-blocking manner, and executes a Node-style callback (if
@@ -16,19 +15,16 @@ The loader module provides the following methods:
 ```js
 var loader = require('bv-ui-core/lib/loader');
 
-var promise = loader.loadScript('/scripts/main.js', function (err, cb) {
-  console.log('it worked');
-});
-
-promise.then(function () {
-  console.log('it really worked');
+var promise = loader.loadScript('/scripts/main.js', function (err) {
+  if (!err) {
+    console.log('it worked');
+  }
 });
 ```
 
 Note: Failure to load is *not* reliably detected in older versions of IE. For
 both `loadScript` and `loadStyleSheet`, the callback will not be executed on
-failure in old IE, and the returned promise will not be rejected on failure in
-old IE.
+failure in old IE.
 
 ### loadScript options
 
