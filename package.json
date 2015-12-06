@@ -28,6 +28,7 @@
     "karma-sinon": "1.0.4",
     "karma-sinon-chai": "1.1.0",
     "karma-webpack": "1.7.0",
+    "mocha": "2.3.4",
     "node-libs-browser": "0.5.2",
     "phantomjs": "1.9.18",
     "webpack": "1.12.0"
