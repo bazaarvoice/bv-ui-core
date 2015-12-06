@@ -11,7 +11,9 @@ describe('lib/logger', function () {
     logStub,
     infoStub,
     warnStub,
-    errorStub;
+    errorStub,
+    groupStub,
+    groupEndStub;
 
   before(function () {
     debugStub = sinon.stub(console, 'debug');
@@ -19,6 +21,8 @@ describe('lib/logger', function () {
     infoStub = sinon.stub(console, 'info');
     warnStub = sinon.stub(console, 'warn');
     errorStub = sinon.stub(console, 'error');
+    groupStub = sinon.stub(console, 'group');
+    groupEndStub = sinon.stub(console, 'groupEnd');
   });
 
   afterEach(function () {
@@ -27,6 +31,8 @@ describe('lib/logger', function () {
     infoStub.reset();
     warnStub.reset();
     errorStub.reset();
+    groupStub.reset();
+    groupEndStub.reset();
 
     // reset the log level to the default
     Logger.setLogLevel(Logger.INFO);
@@ -106,4 +112,38 @@ describe('lib/logger', function () {
       }).to.throw(Error, /Assertion failed/);
     });
   })
+
+  describe('#group', function () {
+    it('calls console.group if maxLevel is < the current log level', function () {
+      Logger.group(Logger.INFO);
+      expect(groupStub).to.have.been.called;
+    });
+
+    it('does not call console.group if maxLevel is < the current log level', function () {
+      Logger.group(Logger.DEBUG);
+      expect(groupStub).to.not.have.been.called;
+    });
+
+    it('passes arguments on to console.group', function () {
+      Logger.group(Logger.INFO, 'Test Group');
+      expect(groupStub).to.have.been.calledWith('Test Group');
+    });
+  });
+
+  describe('#groupEnd', function () {
+    it('calls console.groupEnd if maxLevel is < the current log level', function () {
+      Logger.groupEnd(Logger.INFO);
+      expect(groupEndStub).to.have.been.called;
+    });
+
+    it('does not call console.groupEnd if maxLevel is < the current log level', function () {
+      Logger.groupEnd(Logger.DEBUG);
+      expect(groupEndStub).to.not.have.been.called;
+    });
+
+    it('passes arguments on to console.groupEnd', function () {
+      Logger.groupEnd(Logger.INFO, 'Test GroupEnd');
+      expect(groupEndStub).to.have.been.calledWith('Test GroupEnd');
+    });
+  });
 })
