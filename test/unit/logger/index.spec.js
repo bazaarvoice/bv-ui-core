@@ -33,8 +33,11 @@ describe('lib/logger', function () {
   });
 
   it('works', function () {
-    Logger.info('hi');
-    expect(infoStub).to.have.been.calledWith('hi');
+    Logger.info('Hello');
+    expect(infoStub).not.to.have.been.called;
+    Logger.setLogLevel(Logger.INFO, true);
+    Logger.info('World');
+    expect(infoStub).to.have.been.calledWith('World');
   });
 
   it('does not log anything if off', function () {
