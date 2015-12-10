@@ -1,6 +1,6 @@
 # logger
 
-The `logger` module provides an object that wraps various console logging methods safely. The default level is INFO, but it is recommended that you set this according to your environment either at build time or by a cookie in the browser in the format `_bvui_debug=loglevel:4`.
+The `logger` module provides an object that wraps various console logging methods safely. The default level is OFF, but it is recommended that you set this according to your environment either at build time or by a cookie in the browser in the format `_bvui_debug=loglevel:1`.
 
 ## Usage
 
@@ -35,6 +35,12 @@ Logger.log('Hello, World!') // Prints Hello, World!
 Logger.setLogLevel(Logger.INFO)
 
 Logger.log('Hello, World!') // Prints nothing because of logLevel
+```
+
+If you have set the logLevel via cookie, any calls to `setLogLevel` in your application will be ignored unless you also pass a force param.
+
+```javascript
+setLogLevel(Logger.LOG, true); // forces LogLevel to LOG
 ```
 
 ### Logger.group/Logger.groupEnd
