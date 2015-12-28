@@ -1,4 +1,4 @@
-![](https://magnum.travis-ci.com/bazaarvoice/bv-ui-core.svg?token=hwKyg8j4RFg7BgmSksac&branch=master)
+![](https://travis-ci.org/bazaarvoice/bv-ui-core.svg)
 
 # bv-ui-core
 
