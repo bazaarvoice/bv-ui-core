@@ -15,7 +15,7 @@ describe('lib/region', function () {
     });
 
     it('should return false for en-US', function () {
-      var result = isEULocale('en-US');
+      var result = region.isEULocale('en-US');
       expect(result).to.equal(false);
     });
 
@@ -30,7 +30,7 @@ describe('lib/region', function () {
     });
 
     it('should return true for en-GB', function () {
-      var result = isEULocale('en-GB');
+      var result = region.isEULocale('en-GB');
       expect(result).to.equal(true);
     });
 
