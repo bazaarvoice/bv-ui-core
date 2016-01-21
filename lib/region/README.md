@@ -17,7 +17,7 @@ region.isEULocale('en_US'); // false
 region.isEULocale('en_GB'); // true
 ```
 This can be useful when you'll have to support detection of multiple regions.
-As we only support the EU region for now, it's not particularly useful yet.
+As only the EU region is supported for now, it's not particularly useful yet.
 
 Loading a specific region module:
 ```javascript
