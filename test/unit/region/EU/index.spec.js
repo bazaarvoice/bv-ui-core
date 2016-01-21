@@ -46,9 +46,4 @@ describe('lib/region/EU', function () {
     var result = isEULocale('IT');
     expect(result).to.equal(true);
   });
-
-  it('should return true for IT', function () {
-    var result = isEULocale('IT');
-    expect(result).to.equal(true);
-  });
 });
