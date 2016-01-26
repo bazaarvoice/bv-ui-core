@@ -6,54 +6,64 @@ var europe = require('../../../../lib/region/europe');
 
 describe('lib/region/europe', function () {
 
-  describe('#has', function () {
+  describe('#hasTerritory', function () {
 
-    it('should return false for en_US', function () {
-      var result = europe.has('en_US');
-      expect(result).to.equal(false);
+    it('should throw an error for en_US', function () {
+      expect(function () {
+        europe.hasTerritory('en_US');
+      }).to.throw();
     });
 
-    it('should return false for en-US', function () {
-      var result = europe.has('en-US');
-      expect(result).to.equal(false);
+    it('should throw an error for fr', function () {
+      expect(function () {
+        europe.hasTerritory('fr');
+      }).to.throw();
     });
 
     it('should return false for US', function () {
-      var result = europe.has('US');
+      var result = europe.hasTerritory('US');
       expect(result).to.equal(false);
     });
 
-    it('should return true for en_GB', function () {
-      var result = europe.has('en_GB');
-      expect(result).to.equal(true);
-    });
-
-    it('should return true for en-GB', function () {
-      var result = europe.has('en-GB');
-      expect(result).to.equal(true);
-    });
-
     it('should return true for GB', function () {
-      var result = europe.has('GB');
-      expect(result).to.equal(true);
-    });
-
-    // Just spot checking some EU locales.
-    it('should return true for ES', function () {
-      var result = europe.has('ES');
-      expect(result).to.equal(true);
-    });
-
-    it('should return true for IT', function () {
-      var result = europe.has('IT');
+      var result = europe.hasTerritory('GB');
       expect(result).to.equal(true);
     });
   });
 
-  describe('#listCountryCodes', function () {
+  describe('#hasLocale', function () {
+
+    it('should throw an error for US', function () {
+      expect(function () {
+        europe.hasLocale('US');
+      }).to.throw();
+    });
+
+    it('should return false for en_US', function () {
+      var result = europe.hasLocale('en_US');
+      expect(result).to.equal(false);
+    });
+
+    it('should return false for en-US', function () {
+      var result = europe.hasLocale('en-US');
+      expect(result).to.equal(false);
+    });
+
+    it('should return true for en_GB', function () {
+      var result = europe.hasLocale('en_GB');
+      expect(result).to.equal(true);
+    });
+
+    it('should return true for en-GB', function () {
+      var result = europe.hasLocale('en-GB');
+      expect(result).to.equal(true);
+    });
+  });
+
+  describe('#listTerritories', function () {
 
     it('should return an array', function () {
-      var result = europe.listCountryCodes();
+      var result = europe.listTerritories();
       expect(result).to.be.an('array');
     });
   });
