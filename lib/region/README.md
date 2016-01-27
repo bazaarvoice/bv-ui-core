@@ -48,3 +48,17 @@ var europeanTerritoryMap = require('bv-ui-core/lib/region/europe/territories');
 ```
 This can be useful if you've no need for other regions and would like to shave
 every last byte from your client-side code.
+
+Errors will be thrown if invalid locale or territory codes are provided. This
+is to protect the user against mistaking language codes for territory codes.
+For example, 'fr' is the code for the French language, and 'FR' is the code
+for France. To avoid the case where `region.hasTerritory('europe', 'fr');`
+returns false, we throw an error.
+
+```javascript
+var region = require('bv-ui-core/lib/region');
+
+// The user likely meant to check 'FR'. To avoid confusion, we throw an error
+// instead of just returning false.
+region.hasTerritory('europe', 'fr');
+```
