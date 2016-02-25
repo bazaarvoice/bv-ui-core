@@ -6,6 +6,7 @@
 
 var global = require('../../../lib/global');
 var loader = require('../../../lib/loader');
+var namespacer = require('../../../lib/namespacer');
 
 describe('lib/loader', function () {
 
@@ -13,11 +14,15 @@ describe('lib/loader', function () {
   var canaryEl;
   var links;
   var originalLinkCount;
+  var TESTING_NAMESPACE_NAME = 'BV_LOADER_TESTING';
+  var namespace = namespacer.namespace(TESTING_NAMESPACE_NAME);
 
   beforeEach(function () {
     doc = global.document;
     links = doc.getElementsByTagName('link');
     originalLinkCount = links.length;
+
+    loader._clearLoadedUrls();
 
     canaryEl = doc.createElement('div');
     doc.body.appendChild(canaryEl);
@@ -25,11 +30,11 @@ describe('lib/loader', function () {
   });
 
   afterEach(function () {
-    var link;
+    links = doc.getElementsByTagName('link');
+    var newLinks = links.length - originalLinkCount;
 
-    // Remove any links added by the test that just ran.
-    while (links.length > originalLinkCount) {
-      link = links[originalLinkCount];
+    for (var i=0; i<newLinks; i++) {
+      var link = links[originalLinkCount];
       link.parentNode.removeChild(link);
     }
 
@@ -76,7 +81,7 @@ describe('lib/loader', function () {
           }).to.not.throw(Error);
         });
 
-        it('options.timeout is optional', function (done) {
+        it('options is optional', function (done) {
           global.libLoaderTestCallback = function () {
             global.libLoaderTestCallback = function () {};
             done();
@@ -93,6 +98,22 @@ describe('lib/loader', function () {
               timeout: '123'
             });
           }).to.throw(/`options.timeout` must be a number/);
+        });
+
+        it('options.namespaceName must be a string', function () {
+          expect(function () {
+            loader.loadScript('/base/test/fixtures/lib.loader.loadscript.js', {
+              namespaceName: 123
+            });
+          }).to.throw(/`options.namespaceName` must be a string/);
+        });
+
+        it('options.forceLoad must be a boolean', function () {
+          expect(function () {
+            loader.loadScript('/base/test/fixtures/lib.loader.loadscript.js', {
+              forceLoad: '123'
+            });
+          }).to.throw(/`options.forceLoad` must be a boolean/);
         });
 
         it('options.attributes sets attributes on the script tag', function (done) {
@@ -197,6 +218,119 @@ describe('lib/loader', function () {
       }, 1000);
     });
 
+    it('loads same script once if forceLoad flag not set', function (done) {
+      var timeout;
+      var scriptExecuted = 0;
+
+      global.libLoaderTestCallback = function () {
+        scriptExecuted = 1;
+      };
+
+      loader.loadScript('/base/test/fixtures/lib.loader.loadscript.js', function () {
+        expect(scriptExecuted).to.equal(1);
+
+        global.libLoaderTestCallback = function () {
+          scriptExecuted = 2;
+        };
+
+        loader.loadScript('/base/test/fixtures/lib.loader.loadscript.js', function () {
+          clearTimeout(timeout);
+          expect(scriptExecuted).to.equal(1);
+          done();
+        });
+      });
+
+      timeout = setTimeout(function () {
+        done(new Error('script load timed out'));
+      }, 2000);
+    });
+
+    it('loads same script multiple times if forceLoad flag set', function (done) {
+      var timeout;
+      var scriptExecuted = 0;
+
+      global.libLoaderTestCallback = function () {
+        scriptExecuted = 1;
+      };
+
+      loader.loadScript('/base/test/fixtures/lib.loader.loadscript.js', function () {
+        expect(scriptExecuted).to.equal(1);
+
+        global.libLoaderTestCallback = function () {
+          scriptExecuted = 2;
+        };
+
+        loader.loadScript('/base/test/fixtures/lib.loader.loadscript.js', {
+          forceLoad: true
+        }, function () {
+          clearTimeout(timeout);
+          expect(scriptExecuted).to.equal(2);
+          done();
+        });
+      });
+
+      timeout = setTimeout(function () {
+        done(new Error('script load timed out'));
+      }, 2000);
+    });
+
+    it('loads same script in specified namespaceName', function (done) {
+      var scriptExecuted = 0;
+      var url = '/base/test/fixtures/lib.loader.loadscript.js';
+
+      global.libLoaderTestCallback = function () {
+        scriptExecuted = 1;
+      };
+
+      loader.loadScript(url, {
+        namespaceName: TESTING_NAMESPACE_NAME
+      }, function () {
+        expect(scriptExecuted).to.equal(1);
+        expect(namespace.loadedUrls[url]).to.equal(true);
+
+        global.libLoaderTestCallback = function () {
+          scriptExecuted = 2;
+        };
+
+        loader.loadScript('/base/test/fixtures/lib.loader.loadscript.js', {
+          namespaceName: TESTING_NAMESPACE_NAME
+        }, function () {
+          clearTimeout(timeout);
+          expect(scriptExecuted).to.equal(1);
+          done();
+        });
+
+      });
+
+      timeout = setTimeout(function () {
+        done(new Error('script load timed out'));
+      }, 2000);
+    });
+
+    it('script should not be added to list if failed to load', function (done) {
+      // skip this test in IE8 and jsdom
+      if (global.attachEvent || global.isJsdom) {
+        return done();
+      }
+
+      var timeout;
+      var invalidUrl = '/no.such.script.js';
+
+      loader.loadScript(invalidUrl, {
+        namespaceName: TESTING_NAMESPACE_NAME
+      }, function (err) {
+        clearTimeout(timeout);
+        expect(err).to.be.instanceof(Error);
+        expect(err.message).to.equal('Error: could not load /no.such.script.js');
+        expect(namespace.loadedUrls[invalidUrl]).to.equal(undefined);
+        done();
+      });
+
+      timeout = setTimeout(function () {
+        done(new Error('script load timed out'));
+      }, 1000);
+    });
+
     it('calls back on failure', function (done) {
       // skip this test in IE8 and jsdom
       if (global.attachEvent || global.isJsdom) {
@@ -265,7 +399,7 @@ describe('lib/loader', function () {
           }).to.not.throw(Error);
         });
 
-        it('options.timeout is optional', function () {
+        it('options is optional', function () {
           expect(function () {
             loader.loadStyleSheet('/base/test/fixtures/lib.loader.loadstylesheet.css', {});
           }).to.not.throw(Error);
@@ -324,6 +458,22 @@ describe('lib/loader', function () {
           });
         });
 
+        it('options.namespaceName must be a string', function () {
+          expect(function () {
+            loader.loadScript('/base/test/fixtures/lib.loader.loadscript.js', {
+              namespaceName: 123
+            });
+          }).to.throw(/`options.namespaceName` must be a string/);
+        });
+
+        it('options.forceLoad must be a boolean', function () {
+          expect(function () {
+            loader.loadScript('/base/test/fixtures/lib.loader.loadscript.js', {
+              forceLoad: '123'
+            });
+          }).to.throw(/`options.forceLoad` must be a boolean/);
+        });
+
       });
 
       it('callback is optional', function () {
@@ -357,7 +507,7 @@ describe('lib/loader', function () {
         return done();
       }
 
-      loader.loadStyleSheet('/base/test/fixtures/lib.loader.loadstylesheet.css', done)
+      loader.loadStyleSheet('/base/test/fixtures/lib.loader.loadstylesheet.css', done);
       expect(canaryEl.offsetWidth).to.not.equal(100);
     });
 
@@ -388,6 +538,80 @@ describe('lib/loader', function () {
       var timeout = setTimeout(function () {
         done(new Error('stylesheet load error timed out'));
       }, 1100);
+
+    });
+
+    it('loads same stylesheet once if forceLoad flag not set', function (done) {
+      loader.loadStyleSheet('/base/test/fixtures/lib.loader.loadstylesheet.css', function () {
+        linkElements = doc.getElementsByTagName('link');
+        expect(linkElements.length).to.equal(originalLinkCount + 1);
+
+        loader.loadStyleSheet('/base/test/fixtures/lib.loader.loadstylesheet.css', function () {
+          linkElements = doc.getElementsByTagName('link');
+          expect(linkElements.length).to.equal(originalLinkCount + 1);
+          done();
+        });
+      });
+    });
+
+    it('loads same stylesheet multiple times if forceLoad flag set', function (done) {
+      loader.loadStyleSheet('/base/test/fixtures/lib.loader.loadstylesheet.css', function () {
+        linkElements = doc.getElementsByTagName('link');
+        expect(linkElements.length).to.equal(originalLinkCount + 1);
+
+        loader.loadStyleSheet('/base/test/fixtures/lib.loader.loadstylesheet.css', {
+          forceLoad: true
+        }, function () {
+          linkElements = doc.getElementsByTagName('link');
+          expect(linkElements.length).to.equal(originalLinkCount + 2);
+          done();
+        });
+      });
+    });
+
+    it('loads same stylesheet in specified namespaceName', function (done) {
+      var url = '/base/test/fixtures/lib.loader.loadstylesheet.css';
+
+      loader.loadStyleSheet(url, {
+        namespaceName: TESTING_NAMESPACE_NAME
+      }, function () {
+        linkElements = doc.getElementsByTagName('link');
+        expect(linkElements.length).to.equal(originalLinkCount + 1);
+
+        var namespace = namespacer.namespace(TESTING_NAMESPACE_NAME);
+        expect(namespace.loadedUrls[url]).to.equal(true);
+
+        loader.loadStyleSheet('/base/test/fixtures/lib.loader.loadstylesheet.css', {
+          namespaceName: TESTING_NAMESPACE_NAME
+        }, function () {
+          linkElements = doc.getElementsByTagName('link');
+          expect(linkElements.length).to.equal(originalLinkCount + 1);
+          done();
+        });
+      });
+    });
+
+    it('calls back on failure', function (done) {
+      if (global.attachEvent) {
+        // Skip this test in IE8.
+        return done();
+      }
+
+      var invalidUrl = '/no.such.stylesheet.css';
+
+      loader.loadStyleSheet(invalidUrl, {
+        namespaceName: TESTING_NAMESPACE_NAME
+      }, function (err) {
+        clearTimeout(timeout);
+        expect(err).to.be.instanceof(Error);
+        expect(err.message).to.equal('Error: could not load /no.such.stylesheet.css');
+        expect(namespace.loadedUrls[invalidUrl]).to.equal(undefined);
+        done();
+      });
+
+      var timeout = setTimeout(function () {
+        done(new Error('stylesheet load error timed out'));
+      }, 1000);
 
     });
 
