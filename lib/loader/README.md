@@ -32,6 +32,10 @@ failure in old IE.
 attributes on the created `<script>` element.
 - **timeout**: the time in milliseconds before the loading should be
 considered failed. Defaults to 10000ms.
+- **forceLoad**: a boolean value as to whether the script should
+attempt to be loaded if an earlier attempt was made. Defaults to false.
+- **namespaceName**: a string containing the name of the namespace to check
+if the script has been previously loaded and store the loadedUrls hash
 
 ### loadStyleSheet options
 
@@ -41,6 +45,10 @@ attributes on the created `<link>` element.
 placed. The default insertion point is after the first `<script>` element on the page.
 - **timeout**: the time in milliseconds before the loading should be
 considered failed. Defaults to 10000ms.
+- **forceLoad**: a boolean value as to whether the stylesheet should
+attempt to be loaded if an earlier attempt was made. Defaults to false.
+- **namespaceName**: a string containing the name of the namespace to check
+if the stylesheet has been previously loaded and store the loadedUrls hash
 
 ### loader timeout
 
