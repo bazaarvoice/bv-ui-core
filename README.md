@@ -51,6 +51,7 @@ module's directory.
 - [parseUri](./lib/parseUri)
 - [performance](./lib/performance)
 - [pixelsDisplayed](./lib/pixelsDisplayed)
+- [staticAssetLoader](./lib/staticAssetLoader)
 
 [1]: ./CONTRIBUTING.md
 [2]: https://nodejs.org/download/
