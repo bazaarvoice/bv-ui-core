@@ -7,49 +7,41 @@ var Logger = require('../../../lib/logger');
 var global = require('../../../lib/global');
 
 describe('lib/logger', function () {
-  var debugStub,
-    logStub,
-    infoStub,
-    warnStub,
-    errorStub,
-    groupStub,
-    groupEndStub;
+  var sandbox;
+  var debugStub;
+  var logStub;
+  var infoStub;
+  var groupStub;
+  var groupEndStub;
 
-  before(function () {
-    debugStub = sinon.stub(console, 'debug');
-    logStub = sinon.stub(console, 'log');
-    infoStub = sinon.stub(console, 'info');
-    warnStub = sinon.stub(console, 'warn');
-    errorStub = sinon.stub(console, 'error');
-    groupStub = sinon.stub(console, 'group');
-    groupEndStub = sinon.stub(console, 'groupEnd');
+  beforeEach(function () {
+    sandbox = sinon.sandbox.create();
+
+    debugStub = sandbox.stub(global.console, 'debug');
+    logStub = sandbox.stub(global.console, 'log');
+    infoStub = sandbox.stub(global.console, 'info');
+    groupStub = sandbox.stub(global.console, 'group');
+    groupEndStub = sandbox.stub(global.console, 'groupEnd');
   });
 
   afterEach(function () {
-    debugStub.reset();
-    logStub.reset();
-    infoStub.reset();
-    warnStub.reset();
-    errorStub.reset();
-    groupStub.reset();
-    groupEndStub.reset();
-
     // reset the log level to the default
     Logger.setLogLevel(Logger.INFO);
+    sandbox.restore();
   });
 
   it('works', function () {
     Logger.info('Hello');
-    expect(infoStub).not.to.have.been.called;
+    sinon.assert.notCalled(infoStub);
     Logger.setLogLevel(Logger.INFO, true);
     Logger.info('World');
-    expect(infoStub).to.have.been.calledWith('World');
+    sinon.assert.calledWith(infoStub, 'World');
   });
 
   it('does not log anything if off', function () {
     Logger.setLogLevel(Logger.OFF);
     Logger.debug('foo');
-    expect(debugStub).to.not.have.been.called;
+    sinon.assert.notCalled(debugStub);
   });
 
   it('does not log if there is no console', function () {
@@ -57,9 +49,9 @@ describe('lib/logger', function () {
     global.console = false;
 
     Logger.info('foo');
-    expect(infoStub).to.not.have.been.called;
-
     global.console = tempConsole;
+
+    sinon.assert.notCalled(infoStub);
   });
 
   it.skip('defaults to `log` in internet explorer', function () {
