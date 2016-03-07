@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.9.0
+
+  * Add a static asset loader implementation.
+
 ## 0.8.1
 
   * Add region module with EU support
