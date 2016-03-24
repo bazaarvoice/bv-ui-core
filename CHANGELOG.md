@@ -1,5 +1,10 @@
 # Changelog
 
+## 0.10.0
+
+  * Add the CSS load checker.
+  * Add options allowing the loader to suppress loading of duplicate files.
+
 ## 0.9.0
 
   * Add a static asset loader implementation.
