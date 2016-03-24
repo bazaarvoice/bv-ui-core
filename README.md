@@ -40,6 +40,7 @@ module's directory.
 - [body](./lib/body)
 - [checkHighContrast](./lib/checkHighContrast)
 - [cookie](./lib/cookie)
+- [cssLoadChecker](./lib/cssLoadChecker)
 - [date.now](./lib/date.now)
 - [domainPolice](./lib/domainPolice)
 - [evented](./lib/evented)
