@@ -1,5 +1,10 @@
 # Changelog
 
+## 0.10.1
+
+  * Check for existence of callback to loadScript/loadStylesheet before attempting to call.
+  * Always allow 'www' subdomain with any url in domainPolice.
+
 ## 0.10.0
 
   * Add the CSS load checker.
