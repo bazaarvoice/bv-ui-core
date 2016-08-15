@@ -48,6 +48,8 @@ nopeCop.get('anything'); // => undefined
 for later lookup.
 
 Prefixing `.` on the `domain` will allow it to match all subdomains as well.
+URL hosts which include `www.` will be allowed with domain name match.
+
 Given the above example, the following domains are all valid:
 
 - `bazaarvoice.com`
@@ -55,6 +57,7 @@ Given the above example, the following domains are all valid:
 - `localhost`
 - `www-stg.localhost`
 - `no-prefixing-dot.foo.com`
+- `www.no-prefixing-dot.foo.com`
 
 Domains that would not be allowed:
 

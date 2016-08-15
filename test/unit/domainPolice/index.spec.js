@@ -34,6 +34,12 @@ describe('lib/domainPolice', function () {
       thirdPartyCookieEnabled: true
     },
     {
+      domain: 'www.no-prefixing-dot.foo.com',
+      matchedDomain: 'no-prefixing-dot.foo.com',
+      isValid: true,
+      thirdPartyCookieEnabled: true
+    },
+    {
       domain: 'foo.com',
       matchedDomain: undefined,
       isValid: false
