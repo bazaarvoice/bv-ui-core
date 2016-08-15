@@ -147,6 +147,18 @@ describe('lib/loader', function () {
         }).to.throw(/`callback` must be a function/);
       });
 
+      it('doesn\'t try to execute non-existent callback on second load', function () {
+        expect(function () {
+          window.BV = window.BV || {}
+          window.BV.loadedUrls = {
+            '/base/test/fixtures/lib.loader.loadscript.js': true
+          }
+          loader.loadScript('/base/test/fixtures/lib.loader.loadscript.js', {
+            namespaceName: 'BV',
+            forceLoad: false
+          });
+        }).to.not.throw(Error);
+      });
     });
 
     it('loads the script at `url`', function (done) {
@@ -486,6 +498,19 @@ describe('lib/loader', function () {
         expect(function () {
           loader.loadStyleSheet('/base/test/fixtures/lib.loader.loadstylesheet.css', {}, 123);
         }).to.throw(/`callback` must be a function/);
+      });
+
+      it('doesn\'t try to execute non-existent callback on second load', function () {
+        expect(function () {
+          window.BV = window.BV || {}
+          window.BV.loadedUrls = {
+            '/base/test/fixtures/lib.loader.loadstylesheet.css': true
+          }
+          loader.loadStyleSheet('/base/test/fixtures/lib.loader.loadstylesheet.css', {
+            namespaceName: 'BV',
+            forceLoad: false
+          });
+        }).to.not.throw(Error);
       });
 
       /*
