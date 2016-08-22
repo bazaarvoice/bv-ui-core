@@ -1,0 +1,67 @@
+{
+  "Includes":{
+
+  },
+  "HasErrors":false,
+  "Offset":0,
+  "TotalResults":4,
+  "Locale":"en_US",
+  "Errors":[
+
+  ],
+  "Results":[
+    {
+      "ProductStatistics":{
+        "NativeReviewStatistics":{
+
+        },
+        "ReviewStatistics":{
+          "TotalReviewCount":0,
+          "AverageOverallRating":null,
+          "OverallRatingRange":5
+        },
+        "ProductId":"Product4"
+      }
+    },
+    {
+      "ProductStatistics":{
+        "NativeReviewStatistics":{
+
+        },
+        "ReviewStatistics":{
+          "TotalReviewCount":2,
+          "AverageOverallRating":2.0,
+          "OverallRatingRange":5
+        },
+        "ProductId":"Product3"
+      }
+    },
+    {
+      "ProductStatistics":{
+        "NativeReviewStatistics":{
+
+        },
+        "ReviewStatistics":{
+          "TotalReviewCount":1,
+          "AverageOverallRating":5.0,
+          "OverallRatingRange":5
+        },
+        "ProductId":"Product2"
+      }
+    },
+    {
+      "ProductStatistics":{
+        "NativeReviewStatistics":{
+
+        },
+        "ReviewStatistics":{
+          "TotalReviewCount":48,
+          "AverageOverallRating":4.0208,
+          "OverallRatingRange":5
+        },
+        "ProductId":"Product1"
+      }
+    }
+  ],
+  "Limit":4
+}
