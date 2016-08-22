@@ -10,6 +10,7 @@ var staticAssetLoaderFactory = require('../../../lib/staticAssetLoader');
 describe('lib/staticAssetLoader', function () {
 
   var assets;
+  var assetNames;
   var config;
   var loaderOptions;
   var sandbox;
