@@ -57,7 +57,7 @@ An object with key/value pairs of inputs. Most values are required.
 
 ##### options.productIds
 
-An array of product ids to query for.
+An array of product ids to query for. A warning will be emitted if over 100 products are requested.
 
 ##### options.environment
 
