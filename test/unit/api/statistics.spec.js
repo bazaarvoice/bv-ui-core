@@ -53,8 +53,50 @@ describe('getStatistics', () => {
     window.fetch = mockFetchSuccess
   })
 
-  it('should throw if not provided options', () => {
-    expect(() => getStatistics()).to.throw('options must be provided')
+  describe('parameter validation', () => {
+    it('should throw if not provided productIds', () => {
+      expect(() => getStatistics({
+        environment: 'qa',
+        key: 'clients_api_key',
+        type: 'Reviews',
+        filters: {
+          ContentLocale: 'en_US'
+        }
+      })).to.throw('productIds must be an array')
+    })
+
+    it('should throw if not provided environment', () => {
+      expect(() => getStatistics({
+        productIds: ['product1', 'product2', 'product3'],
+        key: 'clients_api_key',
+        type: 'Reviews',
+        filters: {
+          ContentLocale: 'en_US'
+        }
+      })).to.throw('environment must be \'qa\', \'staging\', or \'production\'')
+    })
+
+    it('should throw if not provided key', () => {
+      expect(() => getStatistics({
+        productIds: ['product1', 'product2', 'product3'],
+        environment: 'qa',
+        type: 'Reviews',
+        filters: {
+          ContentLocale: 'en_US'
+        }
+      })).to.throw('key must be provided')
+    })
+
+    it('should throw if not provided type', () => {
+      expect(() => getStatistics({
+        productIds: ['product1', 'product2', 'product3'],
+        environment: 'qa',
+        key: 'clients_api_key',
+        filters: {
+          ContentLocale: 'en_US'
+        }
+      })).to.throw('type must be \'Reviews\' or \'NativeReviews\'')
+    })
   })
 
   it('should work in general', () => {
