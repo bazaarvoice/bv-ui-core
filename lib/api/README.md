@@ -3,9 +3,15 @@
 This module acts as a javascript wrapper around api.bazaarvoice.com. For more
 information about the API, please see the [API documentation][0].
 
-**Important** This module is written using ES6 syntax. You can use this source
-file in conjunction with your own transpiler, or you can use the transpiled
-`dist/` file.
+### Requirements
+
+This module is written using ES6. In order to use the source you may need to
+provide your own transpiler, depending on your supported browsers.
+
+We also takes advantage of some built-ins that you may need to polyfill:
+
+- `fetch`: http://caniuse.com/#feat=fetch
+- `Promise`: http://caniuse.com/#feat=promises
 
 #### How to Use
 
@@ -55,12 +61,12 @@ An array of product ids to query for.
 
 ##### options.environment
 
-A string representing th data environment. Accepts `qa`, `staging` or
+A string representing the data environment. Accepts `qa`, `staging` or
 `production`.
 
 ##### options.key
 
-The client's api key.
+Your api key.
 
 ##### options.type
 
@@ -74,9 +80,9 @@ instead.
 
 ##### options.filters (optional)
 
-An object representing filters keyed by the name of the filter. ContentLocale 
-can be provided to specify a locale subset for the statistics. If no 
-ContentLocale is provided, will return the global statistics for each product 
+An object representing filters keyed by the name of the filter. `ContentLocale `
+can be provided to specify a locale subset for the statistics. If no
+`ContentLocale` is provided, will return the global statistics for each product
 in the query.
 
 Example:
