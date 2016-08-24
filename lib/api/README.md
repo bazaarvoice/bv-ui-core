@@ -8,7 +8,7 @@ information about the API, please see the [API documentation][0].
 This module is written using ES6. In order to use the source you may need to
 provide your own transpiler, depending on your supported browsers.
 
-We also takes advantage of some built-ins that you may need to polyfill:
+We also take advantage of some built-ins that you may need to polyfill:
 
 - `fetch`: http://caniuse.com/#feat=fetch
 - `Promise`: http://caniuse.com/#feat=promises
@@ -21,8 +21,7 @@ Before using, you'll need to load up the API module:
 const api = require('bv-ui-core/lib/api')
 ```
 
-Or if you know the specific type of request you are going to make you can
-call, you can do the following:
+Or if you know the specific type of request you are going to make, you can do the following:
 
 ```javascript
 const getStatistics = require('bv-ui-core/lib/api/statistics')

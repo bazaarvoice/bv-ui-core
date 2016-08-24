@@ -37,7 +37,7 @@ module.exports = function (config) {
         nocache: true
       },
 
-      // We need the polyfill for testin es6 modules.
+      // We need the polyfill for testing es6 modules.
       'node_modules/babel-polyfill/dist/polyfill.js',
     ],
 
