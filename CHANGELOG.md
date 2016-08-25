@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.11.0
+
+ * Add an api module for interacting with the bazaarvoice api. Currently only statistics api requests are supported.
+
 ## 0.10.1
 
   * Check for existence of callback to loadScript/loadStylesheet before attempting to call.
