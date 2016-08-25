@@ -314,7 +314,7 @@ describe('lib/loader', function () {
 
       });
 
-      timeout = setTimeout(function () {
+      var timeout = setTimeout(function () {
         done(new Error('script load timed out'));
       }, 2000);
     });
@@ -568,7 +568,7 @@ describe('lib/loader', function () {
 
     it('loads same stylesheet once if forceLoad flag not set', function (done) {
       loader.loadStyleSheet('/base/test/fixtures/lib.loader.loadstylesheet.css', function () {
-        linkElements = doc.getElementsByTagName('link');
+        var linkElements = doc.getElementsByTagName('link');
         expect(linkElements.length).to.equal(originalLinkCount + 1);
 
         loader.loadStyleSheet('/base/test/fixtures/lib.loader.loadstylesheet.css', function () {
@@ -581,7 +581,7 @@ describe('lib/loader', function () {
 
     it('loads same stylesheet multiple times if forceLoad flag set', function (done) {
       loader.loadStyleSheet('/base/test/fixtures/lib.loader.loadstylesheet.css', function () {
-        linkElements = doc.getElementsByTagName('link');
+        var linkElements = doc.getElementsByTagName('link');
         expect(linkElements.length).to.equal(originalLinkCount + 1);
 
         loader.loadStyleSheet('/base/test/fixtures/lib.loader.loadstylesheet.css', {
@@ -600,7 +600,7 @@ describe('lib/loader', function () {
       loader.loadStyleSheet(url, {
         namespaceName: TESTING_NAMESPACE_NAME
       }, function () {
-        linkElements = doc.getElementsByTagName('link');
+        var linkElements = doc.getElementsByTagName('link');
         expect(linkElements.length).to.equal(originalLinkCount + 1);
 
         var namespace = namespacer.namespace(TESTING_NAMESPACE_NAME);

@@ -6,16 +6,6 @@
 module.exports = function (config) {
   config.set({
 
-    plugins: [
-      require('karma-mocha'),
-      require('karma-chai'),
-      require('karma-sinon-chai'),
-      require('karma-webpack'),
-      require('karma-chrome-launcher'),
-      require('karma-phantomjs-launcher'),
-      require('karma-coverage')
-    ],
-
     // Base path that will be used to resolve all patterns (eg. files, exclude).
     basePath: '',
 
@@ -45,7 +35,10 @@ module.exports = function (config) {
         served: true,
         watched: true,
         nocache: true
-      }
+      },
+
+      // We need the polyfill for testing es6 modules.
+      'node_modules/babel-polyfill/dist/polyfill.js',
     ],
 
     // List of files to exclude.
@@ -69,6 +62,15 @@ module.exports = function (config) {
       // https://github.com/deepsweet/istanbul-instrumenter-loader allows
       // code coverage of just the things we want.
       module: {
+        loaders: [{
+          test: /\.js$/,
+          exclude: /(node_modules|bower_components)/,
+          loader: 'babel-loader',
+          query: {
+            plugins: ['lodash'],
+            presets: ['es2015']
+          }
+        }],
         postLoaders: [{
           test: /\.js$/,
           exclude: /(test|node_modules)\//,
