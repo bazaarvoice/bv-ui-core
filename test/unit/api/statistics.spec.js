@@ -40,6 +40,21 @@ const mockFetchFail = () => {
   }
 }
 
+const mockFetchFailMissingError = () => {
+  return {
+    then: () => {
+      return {
+        then: (callback) => {
+          let apiResult = {
+            HasErrors: true
+          }
+          callback(apiResult)
+        }
+      }
+    }
+  }
+}
+
 let getStatistics = require('../../../lib/api/statistics')
 
 describe('getStatistics', () => {
@@ -65,6 +80,21 @@ describe('getStatistics', () => {
       })).to.throw('productIds must be an array')
     })
 
+    it('should throw if provided non-array productIds', () => {
+      let invalids = ['product1', { id: 'product1' }]
+      for (let productId in invalids) {
+        expect(() => getStatistics({
+          productIds: productId,
+          environment: 'qa',
+          key: 'clients_api_key',
+          type: 'Reviews',
+          filters: {
+            ContentLocale: 'en_US'
+          }
+        })).to.throw('productIds must be an array')
+      }
+    })
+
     it('should throw if not provided environment', () => {
       expect(() => getStatistics({
         productIds: ['product1', 'product2', 'product3'],
@@ -74,6 +104,22 @@ describe('getStatistics', () => {
           ContentLocale: 'en_US'
         }
       })).to.throw('environment must be \'qa\', \'staging\', or \'production\'')
+    })
+
+    it('should throw if provided invalid environment', () => {
+      let invalids = ['dev', 'stg', 'prod']
+
+      for (let environment in invalids) {
+        expect(() => getStatistics({
+          productIds: ['product1', 'product2', 'product3'],
+          environment: environment,
+          key: 'clients_api_key',
+          type: 'Reviews',
+          filters: {
+            ContentLocale: 'en_US'
+          }
+        })).to.throw('environment must be \'qa\', \'staging\', or \'production\'')
+      }
     })
 
     it('should throw if not provided key', () => {
@@ -95,6 +141,18 @@ describe('getStatistics', () => {
         filters: {
           ContentLocale: 'en_US'
         }
+      })).to.throw('type must be \'Reviews\' or \'NativeReviews\'')
+    })
+
+    it('should throw if provided invalid type', () => {
+      expect(() => getStatistics({
+        productIds: ['product1', 'product2', 'product3'],
+        environment: 'qa',
+        key: 'clients_api_key',
+        filters: {
+          ContentLocale: 'en_US'
+        },
+        type: 'reviews'
       })).to.throw('type must be \'Reviews\' or \'NativeReviews\'')
     })
   })
@@ -125,7 +183,7 @@ describe('getStatistics', () => {
     })
   })
 
-  it('should return an error\'s message', (done) => {
+  it('should return an error', (done) => {
     window.fetch = mockFetchFail
     getStatistics({
       productIds: ['product1', 'product2', 'product3'],
@@ -135,8 +193,25 @@ describe('getStatistics', () => {
       filters: {
         ContentLocale: 'en_US'
       }
-    }).then(() => {}, reason => {
-      expect(reason).to.equal('An error occurred.')
+    }).then(() => {}, error => {
+      expect(error.Message).to.equal('An error occurred.')
+      done()
+    })
+  })
+
+  it('should return ERROR_UNKNOWN error if error is missing from response', (done) => {
+    window.fetch = mockFetchFailMissingError
+    getStatistics({
+      productIds: ['product1', 'product2', 'product3'],
+      environment: 'qa',
+      key: 'clients_api_key',
+      type: 'Reviews',
+      filters: {
+        ContentLocale: 'en_US'
+      }
+    }).then(() => {}, error => {
+      expect(error.Message).to.equal('An unknown error occurred.')
+      expect(error.Code).to.equal('ERROR_UNKNOWN')
       done()
     })
   })

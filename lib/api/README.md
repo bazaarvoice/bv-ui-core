@@ -119,8 +119,13 @@ getStatistics({
   }
 }).then(results => {
   // Do something with results array.
-}, errorMessage => {
-  // Do something with the error message
+}, error => {
+  // Do something with the error.
+  // Format will be:
+  // {
+  //  Message: 'foo',
+  //  Code: 'BAR'
+  // }
 })
 ```
 
