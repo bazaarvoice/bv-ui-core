@@ -8,7 +8,7 @@
     "url": "git://github.com/bazaarvoice/bv-ui-core"
   },
   "engines": {
-    "node" : ">=7.8"
+    "node" : ">=6.10"
   },
   "scripts": {
     "lint": "eslint karma.conf.js lib test",
