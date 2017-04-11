@@ -7,6 +7,9 @@
     "type": "git",
     "url": "git://github.com/bazaarvoice/bv-ui-core"
   },
+  "engines": {
+    "node" : ">=7.8"
+  },
   "scripts": {
     "lint": "eslint karma.conf.js lib test",
     "test": "./node_modules/karma/bin/karma start --single-run --browsers PhantomJS",
