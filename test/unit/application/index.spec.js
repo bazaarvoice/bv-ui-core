@@ -53,7 +53,7 @@ describe('lib/application', function () {
       sinon.assert.calledTwice(fn);
     });
 
-    it('returns a Promise when Promises are available', function () {
+    it('returns a Promise', function () {
       if (typeof global.Promise === 'function') {
         var returnVal = application.ready();
         expect(returnVal).to.not.be.a('number');
@@ -101,21 +101,6 @@ describe('lib/application', function () {
       else {
         // Auto-pass in this environment
         expect(true).to.equal(true);
-      }
-    });
-
-    it('returns length of queue when Promises are unavailable', function () {
-      if (typeof global.Promise === 'function') {
-        // Auto-pass in this environment
-        expect(true).to.equal(true);
-      }
-      else {
-        var returnVal;
-        // Invoke .ready() and make sure it returns undefined
-        returnVal = application.ready();
-        expect(returnVal).to.equal(0);
-        returnVal = application.ready(sandbox.spy());
-        expect(returnVal).to.equal(1);
       }
     });
 

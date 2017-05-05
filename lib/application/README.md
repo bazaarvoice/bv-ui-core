@@ -31,29 +31,33 @@ namespacer.namespace('APP').registerProperty(
 // loader.load(url).then( ... do something ... );
 ```
 
+## ES6 Considerations
+
+This module takes advantage of Promises, which you may need to [polyfill][3]:
+
+- `Promise`: http://caniuse.com/#feat=promises
+
 ## Methods to be Called by Users
 
 An application instance provides the following methods:
 
-- `ready(callback)`: A method intended for your users to call at any time in
-  order to register a callback which will be invoked as soon as your
-  application has been loaded and its API is available to be used. Callback
-  function should be a standard Node errback signature, where its first
-  expected parameter will be an error (if applicable), and its second
-  parameter will be the application instance.
+- `ready(callback)`: (optional) A method intended for your users to call at
+  any time in order to register a callback which will be invoked as soon as
+  your application has been loaded and its API is available to be used.
+  Callback function should be a standard Node errback signature, where its
+  first expected parameter will be an error (if applicable), and its second
+  parameter will be the application instance. The return value is a Promise
+  that you can chain your callbacks onto. The success callbacks (on your
+  `then` Promise chain) will only be given a single input parameter, the
+  application instance, and your failure callbacks (on your `catch` Promise
+  chain) will only be given a single input parameter,
+  the error.
 
-  Note that the callback itself is optional in environments where ES6 Promises
-  are available for use. In these scenarios, you can use the return value of
-  `ready` as a Promise to chain your callbacks onto. In this case, your
-  success callbacks (on your `then` Promise chain) will only be given a single
-  input parameter, the application instance. Your failure callbacks (on your
-  `catch` Promise chain) will only be given a single input parameter, the
-  error.
-
-  If you opt to mix and match the callback and the Promise interfaces, be
-  aware that all registered callbacks passed to the `ready` function will be
-  executed first, in the order in which they were attached, and then the
-  Promise chain will be resolved or rejected.
+  Note: If you opt to mix and match the callback and the Promise interfaces,
+  be aware that all registered callbacks passed *to* the `ready` function
+  will be executed first, in the order in which they were attached, and then
+  the Promise chain will be resolved or rejected, which will in turn trigger
+  callbacks on the appropriate `then` or `catch` chain.
 
 - `render(config)`: A method intended for your users to call any time after
   this application module is loaded, passing in configuration information
@@ -71,15 +75,11 @@ APP.exampleApp.render({ productId : 1 });
 
 - `processReady(error)`: A method that your core application code can call in
   order to access calls to `ready` that have occurred. The only parameter it
-  accepts is an optional one, for an error to be passed to the callbacks in
-  its queue, and to reject its Promise with, if used in an environment that
-  supports ES6 Promises. It will then replace the original definition of the
-  `ready` method. Queued items are processed synchronously. If your
-  application is being loaded via the BV Loader, the Loader will handle
-  invoking `processReady` automatically, as soon as your application script
-  has been loaded. If there is any error with your script loading, BV Loader
-  will also handle passing the error to your `processReady` function so that
-  it can properly pass it on to its own subscribers.
+  accepts is an optional one, a load error to be passed to the callbacks in
+  its queue, and to reject its Promise with. It will, from that point on,
+  process all callbacks immediately when passed to the `ready` method. Queued
+  items are processed synchronously, so if your callback is a long-running
+  process, you might want to consider wrapping it in a setTimeout.
 - `processQueue(fn)`: A method that your core application code can call in
   order to access calls to `render` that have occurred; the provided function
   will be used to handle those calls, and will then replace the original
@@ -93,3 +93,4 @@ APP.exampleApp.render({ productId : 1 });
 
 [1]: ../loader
 [2]: ../namespacer
+[3]: https://github.com/stefanpenner/es6-promise
