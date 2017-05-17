@@ -1,5 +1,10 @@
 # Changelog
 
+## 0.11.1
+
+ * Fixed a bug that was causing the static asset loader loadScript callback to reference an undefined variable.
+ * The namespacer module now creates namespaces that can now be extended but not replaced.
+
 ## 0.11.0
 
  * Add an api module for interacting with the bazaarvoice api. Currently only statistics api requests are supported.
