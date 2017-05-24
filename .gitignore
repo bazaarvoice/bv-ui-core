@@ -1,5 +1,6 @@
 # Don't store node modules because that's gross
 node_modules
+coverage
 
 # Numerous always-ignore extensions
 *.diff
