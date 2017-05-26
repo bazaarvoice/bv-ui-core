@@ -51,6 +51,7 @@ module's directory.
 - [namespacer](./lib/namespacer)
 - [parseUri](./lib/parseUri)
 - [performance](./lib/performance)
+- [polyfills](./lib/polyfills)
 - [pixelsDisplayed](./lib/pixelsDisplayed)
 - [staticAssetLoader](./lib/staticAssetLoader)
 
