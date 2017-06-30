@@ -5,7 +5,11 @@ describe('api', function () {
 
   before(() => {
     oldFetch = window.fetch
-    window.fetch = () => {}
+    window.fetch = () => Promise.resolve({
+      json: () => ({
+        Results: [],
+      }),
+    })
   })
 
   after(() => {
