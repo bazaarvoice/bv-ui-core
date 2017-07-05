@@ -1,6 +1,6 @@
 {
   "name": "bv-ui-core",
-  "version": "0.13.0",
+  "version": "0.13.1",
   "license": "Apache 2.0",
   "description": "Bazaarvoice UI-related JavaScript",
   "repository": {
@@ -8,7 +8,7 @@
     "url": "git://github.com/bazaarvoice/bv-ui-core"
   },
   "engines": {
-    "node" : ">=6.10"
+    "node": ">=6.10"
   },
   "scripts": {
     "lint": "eslint karma.conf.js lib test",
