@@ -19,7 +19,7 @@ describe('lib/getOriginalConstructor', function () {
   it('Should return an unaltered constructor', function () {
     // Verify that the original push function matches '[native code]'
     expect(!!originalPush.toString().match(/\[native code]/)).to.equal(true);
-    // Verify that the overridden push function matches '[native code]'
+    // Verify that the overridden push function doesn't match '[native code]'
     expect(!!Array.prototype.push.toString().match(/\[native code]/)).to.equal(false);
 
     // Verify that the getOriginalConstructor function returns a reset
