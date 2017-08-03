@@ -1,5 +1,5 @@
 {
-  "name": "bv-ui-core",
+  "name": "@bv/bv-ui-core",
   "version": "0.14.0",
   "license": "Apache 2.0",
   "description": "Bazaarvoice UI-related JavaScript",
