@@ -31,4 +31,21 @@ describe('lib/getOriginalConstructor', function () {
     expect(getOriginalConstructor(Array)).to.equal(originalArray);
   });
 
+  it('Should return the definition for constructor.name when constructor.name exists', function () {
+    var constructor = function Array () {};
+
+    Object.defineProperty(constructor, 'name', {
+      value: 'Array'
+    })
+
+    // We should pull the Array constructor, with prototype, if this is working properly
+    expect(getOriginalConstructor(constructor)).to.have.property('prototype');
+  });
+
+  it('Should return the definition for the function name where constructor.name doesn\'t exist', function () {
+    var constructor = function Array () {};
+
+    // We should pull the Array constructor, with prototype, if this is working properly
+    expect(getOriginalConstructor(constructor)).to.have.property('prototype');
+  });
 });
