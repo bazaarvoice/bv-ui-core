@@ -1,8 +1,8 @@
 # Polyfills!
 
 The polyfills contained in this folder can be imported as necessary. They should
-export either the built-in being polyfilled, if found on the global, or the
-polyfill.
+export either the builtin native function(s), if found on the global, or the
+polyfill itself.
 
 ## Usage
 
@@ -14,14 +14,26 @@ const Promise = require('bv-ui-core/lib/polyfills/promise')
 const myPromise = new Promise((resolve, reject) => {/*...*/})
 ```
 
+```js
+const { fetch, Headers } = require('bv-ui-core/lib/polyfills/fetch')
+// Do things with the fetch polyfill!
+fetch(url, {
+  headers: new Headers({
+    'Accept': 'application/json',
+  }),
+}).then(myCallback)
+```
+
 **In webpack**
 
 ```js
 plugins: [
+  // Any references to these items in the bundle will be wrapped in
+  // references to their respective polyfill module exports.
   new webpack.ProvidePlugin({
-    // Any Promise references in the bundle will be wrapped in references to
-    // the polyfill.
-    Promise: 'bv-ui-core/lib/polyfill/promise'
+    Promise: 'bv-ui-core/lib/polyfill/promise',
+    fetch: ['bv-ui-core/lib/polyfill/fetch', 'fetch'],
+    Headers: ['bv-ui-core/lib/polyfill/fetch', 'Headers'],
   })
 ]
 ```

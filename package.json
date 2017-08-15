@@ -50,5 +50,8 @@
       "pre-commit": "npm run lint",
       "pre-push": "npm run lint && npm test"
     }
+  },
+  "dependencies": {
+    "whatwg-fetch": "^2.0.3"
   }
 }
