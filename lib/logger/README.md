@@ -62,7 +62,7 @@ Logger.assert(() => {
 Logger.assert(true === false, 'Obviously, I failed.');
 ```
 
-##Bookmarklet
+## Bookmarklet
 
 You can use the following bookmarklet in a browser to specify your loglevel. Save the below script as a bookmark and click on it when you want to modify the stored cookie value.
 
