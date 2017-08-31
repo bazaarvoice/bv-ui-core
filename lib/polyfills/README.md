@@ -31,9 +31,9 @@ plugins: [
   // Any references to these items in the bundle will be wrapped in
   // references to their respective polyfill module exports.
   new webpack.ProvidePlugin({
-    Promise: 'bv-ui-core/lib/polyfill/promise',
-    fetch: ['bv-ui-core/lib/polyfill/fetch', 'fetch'],
-    Headers: ['bv-ui-core/lib/polyfill/fetch', 'Headers'],
+    Promise: 'bv-ui-core/lib/polyfills/promise',
+    fetch: ['bv-ui-core/lib/polyfills/fetch', 'fetch'],
+    Headers: ['bv-ui-core/lib/polyfills/fetch', 'Headers'],
   })
 ]
 ```
