@@ -70,7 +70,7 @@ You can use the following bookmarklet in a browser to specify your loglevel. Sav
 javascript:(function() { var val = prompt('Enter log level (From -1 to 4)'); if (!val && val !== 0) { return; } document.cookie='_bvui_debug=logLevel:' + val; }());
 ```
 
-Here are the values for log level. This bookmarklet will show you everything above the log level you enter (so if you enter `1`, you will see values for log level 1, 2, and 3.
+Here are the values for log level. This bookmarklet will show you everything above the log level you enter (so if you enter `1`, you will see values for log level 1, 2, and 3).
 
 ```
   DEBUG: -1, // very noisy
