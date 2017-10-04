@@ -23,6 +23,9 @@ module.exports = function (config) {
 
     // list of files / patterns to load in the browser.
     files: [
+      // We need the polyfill for testing es6 modules.
+      'node_modules/babel-polyfill/dist/polyfill.js',
+
       // Loaded into the browser test page.
       'test/unit/mochaInit.js',
       'test/unit/**/*.spec.js',
@@ -36,9 +39,6 @@ module.exports = function (config) {
         watched: true,
         nocache: true
       },
-
-      // We need the polyfill for testing es6 modules.
-      'node_modules/babel-polyfill/dist/polyfill.js',
     ],
 
     // List of files to exclude.

@@ -44,6 +44,7 @@ module's directory.
 - [date.now](./lib/date.now)
 - [domainPolice](./lib/domainPolice)
 - [evented](./lib/evented)
+- [getOriginalConstructor](./lib/getOriginalConstructor)
 - [global](./lib/global)
 - [ie](./lib/ie)
 - [loader](./lib/loader)
@@ -54,6 +55,7 @@ module's directory.
 - [polyfills](./lib/polyfills)
 - [pixelsDisplayed](./lib/pixelsDisplayed)
 - [staticAssetLoader](./lib/staticAssetLoader)
+- [waitForBody](./lib/waitForBody)
 
 [1]: ./CONTRIBUTING.md
 [2]: https://nodejs.org/download/
