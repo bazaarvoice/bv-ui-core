@@ -1,6 +1,6 @@
 {
   "name": "bv-ui-core",
-  "version": "0.14.5",
+  "version": "1.0.0",
   "license": "Apache 2.0",
   "description": "Bazaarvoice UI-related JavaScript",
   "repository": {
