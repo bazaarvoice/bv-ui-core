@@ -3,7 +3,7 @@
  * Unit tests for the fetch polyfill module.
  */
 
-var global = require('../../../lib/global');
+var global = require('../../../../lib/global');
 
 describe('lib/polyfills/fetch', function () {
   var nativeSupport = function () {
@@ -15,10 +15,7 @@ describe('lib/polyfills/fetch', function () {
 
     global.fetch = nativeSupport;
 
-    var fetchModule = require('../../../lib/polyfills/fetch');
-
-    // Test default export
-    expect(fetchModule).to.equal(nativeSupport);
+    var fetchModule = require('../../../../lib/polyfills/fetch');
 
     // Test named exports
     expect(fetchModule.fetch).to.equal(nativeSupport);
@@ -34,7 +31,7 @@ describe('lib/polyfills/fetch', function () {
     global.fetch = fetch;
 
     // Clear the require cache for the next time it's required
-    delete require.cache[require.resolve('../../../lib/polyfills/fetch')];
+    delete require.cache[require.resolve('../../../../lib/polyfills/fetch')];
   });
 
   it('polyfills when not natively supported', function () {
@@ -42,10 +39,7 @@ describe('lib/polyfills/fetch', function () {
 
     global.fetch = undefined;
 
-    var fetchModule = require('../../../lib/polyfills/fetch');
-
-    // Test default export
-    expect(fetchModule).not.to.equal(nativeSupport);
+    var fetchModule = require('../../../../lib/polyfills/fetch');
 
     // Test named exports
     expect(fetchModule.fetch).not.to.equal(nativeSupport);
@@ -62,6 +56,6 @@ describe('lib/polyfills/fetch', function () {
     global.fetch = fetch;
 
     // Clear the require cache for the next time it's required
-    delete require.cache[require.resolve('../../../lib/polyfills/fetch')];
+    delete require.cache[require.resolve('../../../../lib/polyfills/fetch')];
   });
 })
