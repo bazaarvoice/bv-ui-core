@@ -17,6 +17,10 @@ describe('lib/polyfills/fetch', function () {
 
     var fetchModule = require('../../../lib/polyfills/fetch');
 
+    // Test default export
+    expect(fetchModule).to.equal(nativeSupport);
+
+    // Test named exports
     expect(fetchModule.fetch).to.equal(nativeSupport);
 
     // If we have native fetch support, we can also check these
@@ -40,6 +44,10 @@ describe('lib/polyfills/fetch', function () {
 
     var fetchModule = require('../../../lib/polyfills/fetch');
 
+    // Test default export
+    expect(fetchModule).not.to.equal(nativeSupport);
+
+    // Test named exports
     expect(fetchModule.fetch).not.to.equal(nativeSupport);
 
     // Verify that we didn't pollute the global namespace
