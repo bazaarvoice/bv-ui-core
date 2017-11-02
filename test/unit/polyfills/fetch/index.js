@@ -3,7 +3,7 @@
  * Unit tests for the fetch polyfill module.
  */
 
-var global = require('../../../lib/global');
+var global = require('../../../../lib/global');
 
 describe('lib/polyfills/fetch', function () {
   var nativeSupport = function () {
@@ -15,8 +15,9 @@ describe('lib/polyfills/fetch', function () {
 
     global.fetch = nativeSupport;
 
-    var fetchModule = require('../../../lib/polyfills/fetch');
+    var fetchModule = require('../../../../lib/polyfills/fetch');
 
+    // Test named exports
     expect(fetchModule.fetch).to.equal(nativeSupport);
 
     // If we have native fetch support, we can also check these
@@ -30,7 +31,7 @@ describe('lib/polyfills/fetch', function () {
     global.fetch = fetch;
 
     // Clear the require cache for the next time it's required
-    delete require.cache[require.resolve('../../../lib/polyfills/fetch')];
+    delete require.cache[require.resolve('../../../../lib/polyfills/fetch')];
   });
 
   it('polyfills when not natively supported', function () {
@@ -38,8 +39,9 @@ describe('lib/polyfills/fetch', function () {
 
     global.fetch = undefined;
 
-    var fetchModule = require('../../../lib/polyfills/fetch');
+    var fetchModule = require('../../../../lib/polyfills/fetch');
 
+    // Test named exports
     expect(fetchModule.fetch).not.to.equal(nativeSupport);
 
     // Verify that we didn't pollute the global namespace
@@ -54,6 +56,6 @@ describe('lib/polyfills/fetch', function () {
     global.fetch = fetch;
 
     // Clear the require cache for the next time it's required
-    delete require.cache[require.resolve('../../../lib/polyfills/fetch')];
+    delete require.cache[require.resolve('../../../../lib/polyfills/fetch')];
   });
 })
