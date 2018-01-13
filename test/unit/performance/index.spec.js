@@ -16,6 +16,10 @@ describe('lib/performance', function () {
     expect(perfModule.getEntriesByName).to.be.a('function');
   });
 
+  it('exposes a getEntriesByType function', function () {
+    expect(perfModule.getEntriesByType).to.be.a('function');
+  });
+
   it('exposes a now function', function () {
     expect(perfModule.now).to.be.a('function');
   });
