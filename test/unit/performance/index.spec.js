@@ -28,4 +28,8 @@ describe('lib/performance', function () {
     expect(perfModule.mark).to.be.a('function');
   });
 
+  it('exposes a measure function', function () {
+    expect(perfModule.measure).to.be.a('function');
+  });
+
 });
