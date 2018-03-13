@@ -6,7 +6,7 @@ simple API, representing the state of that URL in the whitelist.
 
 ## Module arguments
 
- - `url`: The particular URL to be validated as a string.
+ - `url`: The particular URL to be validated as a string. This must be a full uri including protocol and hostname. Ports are not validated.
  - `allowedDomains`: An array of objects representing whitelisted arrays.
 
 ## Usage
