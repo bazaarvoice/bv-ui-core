@@ -50,4 +50,25 @@ describe('lib/parseUri', function () {
     expect(parsedUri.queryKey).to.eql({ foo: 'bar', baz: '3' });
   });
 
+  it('correctly parses a URL with the @ symbol in the query', function () {
+    var url = 'https://dev04-webstore-jackwills.demandware.net/on/demandware.store/Sites-jwuk-Site/en_GB/DebugPipelines-ShowConfirmation?cid=p@p.com&&oid=00026203';
+    var parsedUri = parseUri(url);
+
+    expect(parsedUri.anchor).to.equal('');
+    expect(parsedUri.query).to.equal('cid=p@p.com&&oid=00026203');
+    expect(parsedUri.file).to.equal('');
+    expect(parsedUri.directory).to.equal('/on/demandware.store/Sites-jwuk-Site/en_GB/DebugPipelines-ShowConfirmation');
+    expect(parsedUri.path).to.equal('/on/demandware.store/Sites-jwuk-Site/en_GB/DebugPipelines-ShowConfirmation');
+    expect(parsedUri.relative).to.equal('/on/demandware.store/Sites-jwuk-Site/en_GB/DebugPipelines-ShowConfirmation?cid=p@p.com&&oid=00026203');
+    expect(parsedUri.port).to.equal('');
+    expect(parsedUri.host).to.equal('dev04-webstore-jackwills.demandware.net');
+    expect(parsedUri.password).to.equal('');
+    expect(parsedUri.user).to.equal('');
+    expect(parsedUri.userInfo).to.equal('');
+    expect(parsedUri.authority).to.equal('dev04-webstore-jackwills.demandware.net');
+    expect(parsedUri.protocol).to.equal('https');
+    expect(parsedUri.source).to.equal(url);
+    expect(parsedUri.queryKey).to.eql({ cid: 'p@p.com', oid: '00026203' });
+  })
+
 });
