@@ -20,7 +20,7 @@ describe('lib/pixelsDisplayed', function () {
 
   function stubAccessor () {
     sinonSandbox = sinon.sandbox.create();
-    stub = sinonSandbox.stub(module, 'getDimensions', function () {
+    stub = sinonSandbox.stub(module, 'getDimensions').callsFake(function () {
       return {
         width: 500,
         height: 500
