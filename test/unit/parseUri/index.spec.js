@@ -51,24 +51,45 @@ describe('lib/parseUri', function () {
   });
 
   it('correctly parses a URL with the @ symbol in the query', function () {
-    var url = 'https://dev04-webstore-jackwills.demandware.net/on/demandware.store/Sites-jwuk-Site/en_GB/DebugPipelines-ShowConfirmation?cid=p@p.com&&oid=00026203';
+    var url = 'https://foo-bar-baz.example.net/on/website.store/apple-gamma-tao/en_GB/makeAsite-doAThing?id=name@site.com&&pid=13897423';
     var parsedUri = parseUri(url);
 
     expect(parsedUri.anchor).to.equal('');
-    expect(parsedUri.query).to.equal('cid=p@p.com&&oid=00026203');
+    expect(parsedUri.query).to.equal('id=name@site.com&&pid=13897423');
     expect(parsedUri.file).to.equal('');
-    expect(parsedUri.directory).to.equal('/on/demandware.store/Sites-jwuk-Site/en_GB/DebugPipelines-ShowConfirmation');
-    expect(parsedUri.path).to.equal('/on/demandware.store/Sites-jwuk-Site/en_GB/DebugPipelines-ShowConfirmation');
-    expect(parsedUri.relative).to.equal('/on/demandware.store/Sites-jwuk-Site/en_GB/DebugPipelines-ShowConfirmation?cid=p@p.com&&oid=00026203');
+    expect(parsedUri.directory).to.equal('/on/website.store/apple-gamma-tao/en_GB/makeAsite-doAThing');
+    expect(parsedUri.path).to.equal('/on/website.store/apple-gamma-tao/en_GB/makeAsite-doAThing');
+    expect(parsedUri.relative).to.equal('/on/website.store/apple-gamma-tao/en_GB/makeAsite-doAThing?id=name@site.com&&pid=13897423');
     expect(parsedUri.port).to.equal('');
-    expect(parsedUri.host).to.equal('dev04-webstore-jackwills.demandware.net');
+    expect(parsedUri.host).to.equal('foo-bar-baz.example.net');
     expect(parsedUri.password).to.equal('');
     expect(parsedUri.user).to.equal('');
     expect(parsedUri.userInfo).to.equal('');
-    expect(parsedUri.authority).to.equal('dev04-webstore-jackwills.demandware.net');
+    expect(parsedUri.authority).to.equal('foo-bar-baz.example.net');
     expect(parsedUri.protocol).to.equal('https');
     expect(parsedUri.source).to.equal(url);
-    expect(parsedUri.queryKey).to.eql({ cid: 'p@p.com', oid: '00026203' });
+    expect(parsedUri.queryKey).to.eql({ id: 'name@site.com', pid: '13897423' });
   })
+
+  it('correctly parses an oddly fragmented URL', function () {
+    var url = 'http://code.example.com/events/#&product=browser';
+    var parsedUri = parseUri(url);
+
+    expect(parsedUri.anchor).to.equal('&product=browser');
+    expect(parsedUri.query).to.equal('');
+    expect(parsedUri.file).to.equal('');
+    expect(parsedUri.directory).to.equal('/events/');
+    expect(parsedUri.path).to.equal('/events/');
+    expect(parsedUri.relative).to.equal('/events/#&product=browser');
+    expect(parsedUri.port).to.equal('');
+    expect(parsedUri.host).to.equal('code.example.com');
+    expect(parsedUri.password).to.equal('');
+    expect(parsedUri.user).to.equal('');
+    expect(parsedUri.userInfo).to.equal('');
+    expect(parsedUri.authority).to.equal('code.example.com');
+    expect(parsedUri.protocol).to.equal('http');
+    expect(parsedUri.source).to.equal(url);
+    expect(parsedUri.queryKey).to.eql({});
+  });
 
 });
