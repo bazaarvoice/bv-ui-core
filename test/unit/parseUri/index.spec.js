@@ -29,6 +29,27 @@ describe('lib/parseUri', function () {
     expect(parsedUri.queryKey).to.eql({});
   });
 
+  it('correctly parses a simple URL without protocol', function () {
+    var url = 'www.example.com';
+    var parsedUri = parseUri(url);
+
+    expect(parsedUri.anchor).to.equal('');
+    expect(parsedUri.query).to.equal('');
+    expect(parsedUri.file).to.equal('');
+    expect(parsedUri.directory).to.equal('');
+    expect(parsedUri.path).to.equal('');
+    expect(parsedUri.relative).to.equal('');
+    expect(parsedUri.port).to.equal('');
+    expect(parsedUri.host).to.equal('www.example.com');
+    expect(parsedUri.password).to.equal('');
+    expect(parsedUri.user).to.equal('');
+    expect(parsedUri.userInfo).to.equal('');
+    expect(parsedUri.authority).to.equal('www.example.com');
+    expect(parsedUri.protocol).to.equal('');
+    expect(parsedUri.source).to.equal(url);
+    expect(parsedUri.queryKey).to.eql({});
+  });
+
   it('correctly parses a complex URL', function () {
     var url = 'https://bob:smith@subdomain.example.com:8080/path/to/file.html?foo=bar&baz=3#hash';
     var parsedUri = parseUri(url);
@@ -48,6 +69,27 @@ describe('lib/parseUri', function () {
     expect(parsedUri.protocol).to.equal('https');
     expect(parsedUri.source).to.equal(url);
     expect(parsedUri.queryKey).to.eql({ foo: 'bar', baz: '3' });
+  });
+
+  it('correctly parses a complex URL without protocol', function () {
+    var url = 'www.example.com/foo/?bar=baz&inga=42&quux';
+    var parsedUri = parseUri(url);
+
+    expect(parsedUri.anchor).to.equal('');
+    expect(parsedUri.query).to.equal('bar=baz&inga=42&quux');
+    expect(parsedUri.file).to.equal('');
+    expect(parsedUri.directory).to.equal('/foo/');
+    expect(parsedUri.path).to.equal('/foo/');
+    expect(parsedUri.relative).to.equal('/foo/?bar=baz&inga=42&quux');
+    expect(parsedUri.port).to.equal('');
+    expect(parsedUri.host).to.equal('www.example.com');
+    expect(parsedUri.password).to.equal('');
+    expect(parsedUri.user).to.equal('');
+    expect(parsedUri.userInfo).to.equal('');
+    expect(parsedUri.authority).to.equal('www.example.com');
+    expect(parsedUri.protocol).to.equal('');
+    expect(parsedUri.source).to.equal(url);
+    expect(parsedUri.queryKey).to.eql({ bar: 'baz', inga: '42', quux: '' });
   });
 
   it('correctly parses a URL with the @ symbol in the query', function () {
