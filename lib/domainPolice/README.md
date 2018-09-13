@@ -6,7 +6,7 @@ simple API, representing the state of that URL in the whitelist.
 
 ## Module arguments
 
- - `url`: The particular URL to be validated as a string. This must be a full uri including protocol and hostname. Ports are not validated.
+ - `url`: The particular URL to be validated as a string. Ports and protocols are not validated.
  - `allowedDomains`: An array of objects representing whitelisted arrays.
 
 ## Usage
@@ -30,13 +30,13 @@ var allowedDomains = [
   }
 ];
 
-var bvCop = domainPolice('http://www.bazaarvoice.com', allowedDomains);
+var bvCop = domainPolice('www.bazaarvoice.com', allowedDomains);
 bvCop.isValid; // => true
 bvCop.get('domain'); // => '.bazaarvoice.com'
 bvCop.get('thirdPartyCookieEnabled'); // => true
 bvCop.get('commentsEnabled'); // => undefined
 
-var nopeCop = domainPolice('http://ww.w.foo.com');
+var nopeCop = domainPolice('ww.w.foo.com');
 nopeCop.isValid; // => false
 nopeCop.get('anything'); // => undefined
 ```
