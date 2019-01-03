@@ -50,7 +50,6 @@ module's directory.
 - [loader](./lib/loader)
 - [logger](./lib/logger)
 - [namespacer](./lib/namespacer)
-- [parseUri](./lib/parseUri)
 - [performance](./lib/performance)
 - [polyfills](./lib/polyfills)
 - [pixelsDisplayed](./lib/pixelsDisplayed)

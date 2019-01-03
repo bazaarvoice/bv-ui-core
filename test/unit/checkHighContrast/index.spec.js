@@ -1,6 +1,6 @@
 /**
  * @fileOverview
- * Unit tests for the parseUri utility.
+ * Unit tests for the checkHighContrast utility.
  */
 
 // Imports.
