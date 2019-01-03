@@ -123,24 +123,13 @@ describe('lib/domainPolice', function () {
      */
     function testDomain (domainUnderTest) {
       var domain = domainUnderTest.domain;
-      // Domain variations to test.
-      var domains = [
-        domain,
-        'http://' + domain,
-        'https://' + domain,
-        'http://' + domain + ':4000',
-        'https://' + domain + ':8000'
-      ];
 
-      var dp;
-      for (var i = 0, l = domains.length; i < l; i++) {
-        dp = domainPolice(domains[i], allowedDomains.slice(0));
+      var dp = domainPolice(allowedDomains.slice(0), domain);
 
-        expect(dp.isValid).to.equal(domainUnderTest.isValid);
-        expect(dp.get('domain')).to.equal(domainUnderTest.matchedDomain);
-        expect(dp.get('thirdPartyCookieEnabled')).to.equal(domainUnderTest.thirdPartyCookieEnabled);
-        expect(dp.get('commentsEnabled')).to.equal(domainUnderTest.commentsEnabled);
-      }
+      expect(dp.isValid).to.equal(domainUnderTest.isValid);
+      expect(dp.get('domain')).to.equal(domainUnderTest.matchedDomain);
+      expect(dp.get('thirdPartyCookieEnabled')).to.equal(domainUnderTest.thirdPartyCookieEnabled);
+      expect(dp.get('commentsEnabled')).to.equal(domainUnderTest.commentsEnabled);
     }
 
     // Run the tests on each domain

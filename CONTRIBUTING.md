@@ -2,9 +2,8 @@
 
 ## Owners
 
-- Rebecca Murphey (@rmurphey)
 - Reason (@reason-bv)
-- Brian Sinclair (@brianarn)
+- Dan Heberden (@danheberden)
 
 ## Getting Started
 
@@ -35,10 +34,6 @@ module.exports = function myModule ($) {
     };
 };
 ```
-
-## Landing Changes
-
-Pull requests should be landed with [git-land](https://github.com/git-land/git-land). **Do not land pull requests using the Github merge button.**
 
 ## File Structure
 

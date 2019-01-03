@@ -1,12 +1,12 @@
 # domainPolice
 
-The `domainPolice` module provides a function that takes a URL and an array of
+The `domainPolice` module provides a function that takes a hostname and an array of
 objects representing a known whitelist of domains, and returns an object with a
 simple API, representing the state of that URL in the whitelist.
 
 ## Module arguments
 
- - `url`: The particular URL to be validated as a string. Ports and protocols are not validated.
+ - `hostname`: The particular hostname to be validated as a string. Ports and protocols are not validated and should not be supplied as part of this. Optimally, this should be provided from `window.location.hostname` in the browser.
  - `allowedDomains`: An array of objects representing whitelisted arrays.
 
 ## Usage
@@ -30,13 +30,13 @@ var allowedDomains = [
   }
 ];
 
-var bvCop = domainPolice('www.bazaarvoice.com', allowedDomains);
+var bvCop = domainPolice(allowedDomains, 'www.bazaarvoice.com');
 bvCop.isValid; // => true
 bvCop.get('domain'); // => '.bazaarvoice.com'
 bvCop.get('thirdPartyCookieEnabled'); // => true
 bvCop.get('commentsEnabled'); // => undefined
 
-var nopeCop = domainPolice('ww.w.foo.com');
+var nopeCop = domainPolice(allowedDomains, 'ww.w.foo.com');
 nopeCop.isValid; // => false
 nopeCop.get('anything'); // => undefined
 ```
