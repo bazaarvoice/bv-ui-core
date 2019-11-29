@@ -26,4 +26,23 @@ describe('lib/import', function () {
     expect(m.once).to.be.a('function');
   });
 
+  it('creates an errorHandler function correctly', function () {
+    function M () {}
+
+    evented.call(M.prototype);
+    var m = new M();
+
+    expect(m.errorHandler).to.eql(undefined);
+    m.on('test_event', function () {
+      throw new Error('test error');
+    });
+    expect(m.errorHandler).to.be.a('function');
+
+    var spy = sinon.spy();
+    m.setErrorHandler(spy);
+
+    m.trigger('test_event');
+    expect(spy).to.have.been.called;
+  })
+
 });
