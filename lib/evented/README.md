@@ -28,9 +28,11 @@ An alternate behavior can be specified by providing an event handler:
 var model = new Model({});
 
 model.setErrorHandler(function(error, trigger) {
-  // error is the value that was thrown, typically an instance of Error
-  // trigger.event is the name of the event passed to trigger()
-  // trigger.data is an array containing the additional arguments passed to trigger()
+  // The following parameters are available to this function:
+  //  - error : the value that was thrown, typically an instance of Error
+  //  - trigger.event : the name of the event passed to trigger()
+  //  - trigger.data : an array containing the additional arguments passed to trigger()
+  //  - this : the instance on which trigger() was invoked
 });
 
 // If you prefer for errors to be thrown from trigger(), then use:
