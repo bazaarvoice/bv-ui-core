@@ -26,23 +26,34 @@ describe('lib/import', function () {
     expect(m.once).to.be.a('function');
   });
 
-  it('creates an errorHandler function correctly', function () {
+  it('invokes an errorHandler function correctly', function () {
     function M () {}
 
     evented.call(M.prototype);
     var m = new M();
 
-    expect(m.errorHandler).to.eql(undefined);
+    // Ensure that errors escaping from listeners are caught
+    var error = new Error('test error 1');
     m.on('test_event', function () {
-      throw new Error('test error');
+      throw error;
     });
-    expect(m.errorHandler).to.be.a('function');
+    m.trigger('test_event'); // should NOT throw
 
+    // Ensure that errors are provided to custom error handler
+    error = new Error('test error 2');
     var spy = sinon.spy();
     m.setErrorHandler(spy);
-
     m.trigger('test_event');
-    expect(spy).to.have.been.called;
+    expect(spy).to.have.been.calledWith(error, sinon.match.has('event', 'test_event'));
+
+    // Ensure that errors can be rethrown from custom error handler
+    error = new Error('test error 3');
+    m.setErrorHandler(function (theError) {
+      throw theError;
+    });
+    expect(function () {
+      m.trigger('test_event');
+    }).to.throw(error);
   })
 
 });
