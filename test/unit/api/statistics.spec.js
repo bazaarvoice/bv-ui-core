@@ -103,7 +103,7 @@ describe('getStatistics', () => {
         filters: {
           ContentLocale: 'en_US'
         }
-      })).to.throw('environment must be \'qa\', \'staging\', or \'production\'')
+      })).to.throw('environment must be "qa", "staging", or "production"')
     })
 
     it('should throw if provided invalid environment', () => {
@@ -118,7 +118,7 @@ describe('getStatistics', () => {
           filters: {
             ContentLocale: 'en_US'
           }
-        })).to.throw('environment must be \'qa\', \'staging\', or \'production\'')
+        })).to.throw('environment must be "qa", "staging", or "production"')
       }
     })
 
@@ -141,7 +141,7 @@ describe('getStatistics', () => {
         filters: {
           ContentLocale: 'en_US'
         }
-      })).to.throw('type must be \'Reviews\' or \'NativeReviews\'')
+      })).to.throw('type must be "Reviews" or "NativeReviews"')
     })
 
     it('should throw if provided invalid type', () => {
@@ -153,7 +153,7 @@ describe('getStatistics', () => {
           ContentLocale: 'en_US'
         },
         type: 'reviews'
-      })).to.throw('type must be \'Reviews\' or \'NativeReviews\'')
+      })).to.throw('type must be "Reviews" or "NativeReviews"')
     })
   })
 
