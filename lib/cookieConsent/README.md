@@ -11,7 +11,7 @@ cookieConsent.initConsent({
 });
 
 // Set cookie consent
-cookieConsent.setConsent('cookie1', true);
+cookieConsent.setConsent({ cookie1: true });
 
 // Get cookie consent
 cookieConsent.getConsent('cookie1');
