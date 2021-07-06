@@ -31,25 +31,25 @@ describe('lib/cookieConsent', function () {
 
   it('cookieConsent.getConsent', function () {
     expect(cookieConsent.getConsent('key1')).to.be.false;
-    cookieConsent.setConsent('key1', true);
+    cookieConsent.setConsent({ key1: true });
     expect(cookieConsent.getConsent('key1')).to.be.true;
   });
 
   it('cookieConsent.setConsent', function () {
     function test1 () {
-      cookieConsent.setConsent(1, 2);
+      cookieConsent.setConsent(null);
     }
 
-    expect(test1).to.throw(TypeError, 'cookieConsent (setConsent): consent key should be of type string.');
+    expect(test1).to.throw(TypeError, 'cookieConsent (setConsent): consent should be an object.');
 
     function test2 () {
-      cookieConsent.setConsent('key2', 1);
+      cookieConsent.setConsent({ key2: 1 });
     }
 
-    expect(test2).to.throw(TypeError, 'cookieConsent (setConsent): consent value should be of type boolean.');
+    expect(test2).to.throw(TypeError, 'cookieConsent (setConsent): consent values should be of type boolean. Check value for key2.');
 
     function test3 () {
-      return cookieConsent.setConsent('key2', false);
+      return cookieConsent.setConsent({ key2: false });
     }
 
     expect(test3()).to.be.true;
