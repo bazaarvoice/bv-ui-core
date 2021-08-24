@@ -23,6 +23,7 @@ cookieConsent.subscribe('cookie3', 'add', function (data) {});
 // Subscribe to consent 'enable' event. Triggers when a cookie consent is set to true
 cookieConsent.subscribe('cookie3', 'enable', function (data) {});
 
+// Valid events that can be subscribed to are 'add', 'enable', 'disable', and 'change'
 // Subscribe to consent 'disable' event. Triggers when a cookie consent is set to false
 var event = cookieConsent.subscribe('cookie3', 'disable', function (data) {});
 
