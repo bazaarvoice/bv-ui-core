@@ -5,10 +5,11 @@ The cookieConsent module provides methods for controlling cookie consents.
 ```js
 var cookieConsent = require('bv-ui-core/lib/cookieConsent');
 // Initialize
+// 2nd parameter is to disable consent mechanism. If true the consent mechanism will remain disabled
 cookieConsent.initConsent({
   cookie1: false,
   cookie2: true
-});
+}, false);
 
 // Set cookie consent
 cookieConsent.setConsent({ cookie1: true });
