@@ -7,7 +7,7 @@ var cookieConsent = require('bv-ui-core/lib/cookieConsent');
 // Initialize
 /**
  * 2nd parameter is to disable/enable consent mechanism.
- * Passing true will disable the consent mechanusm.
+ * Passing true will disable the consent mechanism.
 */
 cookieConsent.initConsent({
   cookie1: false,
