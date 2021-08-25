@@ -32,4 +32,7 @@ var event = cookieConsent.subscribe('cookie3', 'disable', function (data) {});
 
 // Unsubscribe events
 event.unsubscribe();
+
+// Get cookie consent disabled/enabled value.
+cookieConsent.getConsentDisabled();
 ```
