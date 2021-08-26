@@ -72,7 +72,7 @@ describe('lib/cookieConsent', function () {
       cookieConsent.subscribe('key1', 'delete', null);
     }
 
-    var events = ['add', 'enable', 'disable'];
+    var events = ['add', 'enable', 'disable', 'change'];
     expect(test3).to.throw(TypeError, 'cookieConsent (subscribe): event name should be one of ' + events.join(', ') + '.');
 
     function test4 () {
