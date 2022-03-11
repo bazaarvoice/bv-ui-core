@@ -86,15 +86,35 @@ describe('lib/cookieConsent', function () {
     }
 
     expect(test5()).to.be.an('object');
-
+    //Error Test
     function test6 () {
       cookieConsent.subscribeToConsentStore('Callback')
     }
     expect(test6).to.throw(TypeError,'cookieConsent (subscribeToConsentStore): callback should be a function.');
-
+    //ConsentCallback Creator Test
     function test7 () {
       return cookieConsent.subscribeToConsentStore(function () {});
     }
     expect(test7()).to.be.an('object');
+
+    //Event Listener Test
+    var fn = sinon.spy()
+    function test8 () {
+      cookieConsent.subscribeToConsentStore(fn)
+      cookieConsent.setConsent({ cookie4: true })
+    }
+    test8 ()
+    sinon.assert.calledOnce(fn)
+
+    //Unsubscribe Test
+    var fn2 = sinon.spy()
+    function test9 () {
+      var event = cookieConsent.subscribeToConsentStore(fn2)
+      event.unsubscribe()
+      cookieConsent.setConsent({ cookie5: true })
+    } 
+    test9()
+    sinon.assert.notCalled(fn2)
+
   });
 });
