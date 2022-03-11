@@ -90,7 +90,7 @@ describe('lib/cookieConsent', function () {
     function test6 () {
       cookieConsent.subscribeToConsentStore('Callback')
     }
-    expect(test6()).to.throw(TypeError,'cookieConsent (subscribeToConsentStore): callback should be a function.');
+    expect(test6).to.throw(TypeError,'cookieConsent (subscribeToConsentStore): callback should be a function.');
 
     function test7 () {
       return cookieConsent.subscribeToConsentStore(function () {});
