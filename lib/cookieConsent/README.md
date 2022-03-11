@@ -32,7 +32,7 @@ var event = cookieConsent.subscribe('cookie3', 'disable', function (data) {});
 
 //to Subscribe to the store we have the subscribeContent method which accepts a callback.
 // This passes the store to the callback function 
-var event = subscribeStore(function (store){});
+var event = subscribeToConsentStore(function (store){});
 
 // Unsubscribe events
 event.unsubscribe();
