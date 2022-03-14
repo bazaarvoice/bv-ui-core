@@ -84,20 +84,21 @@ describe('lib/cookieConsent', function () {
     function test5 () {
       return cookieConsent.subscribe('key1', 'enable', function () {});
     }
-
     expect(test5()).to.be.an('object');
-    //Error Test
+  });
+  it('cookieConsent.subscribeToConsentStore', function () {
+    // Error checks - Correct errors are thrown
     function test6 () {
       cookieConsent.subscribeToConsentStore('Callback')
     }
     expect(test6).to.throw(TypeError,'cookieConsent (subscribeToConsentStore): callback should be a function.');
-    //ConsentCallback Creator Test
+    // Subscriber creation test - The subscription gets created correctly
     function test7 () {
       return cookieConsent.subscribeToConsentStore(function () {});
     }
     expect(test7()).to.be.an('object');
 
-    //Event Listener Test
+    // Event listener test - The subscriber callback fires on store change
     var fn = sinon.spy()
     function test8 () {
       cookieConsent.subscribeToConsentStore(fn)
@@ -105,8 +106,7 @@ describe('lib/cookieConsent', function () {
     }
     test8 ()
     sinon.assert.calledOnce(fn)
-
-    //Unsubscribe Test
+    // Unsubscribe test - Should be able to unsubscribe successfully (Should not fire the callback after unsubscription)
     var fn2 = sinon.spy()
     function test9 () {
       var event = cookieConsent.subscribeToConsentStore(fn2)
@@ -115,6 +115,5 @@ describe('lib/cookieConsent', function () {
     } 
     test9()
     sinon.assert.notCalled(fn2)
-
   });
 });
