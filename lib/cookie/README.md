@@ -5,7 +5,7 @@ The cookie module provides methods for interacting with browser cookies.
 ```js
 var cookie = require('bv-ui-core/lib/cookie');
 
-cookie.write('RememberMe', '1', 365);
+cookie.create('RememberMe', '1', 365);
 console.log(cookie.read('RememberMe')); // '1'
 cookie.remove('RememberMe');
 ```

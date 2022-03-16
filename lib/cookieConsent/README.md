@@ -30,6 +30,9 @@ cookieConsent.subscribe('cookie3', 'enable', function (data) {});
 // Subscribe to consent 'disable' event. Triggers when a cookie consent is set to false
 var event = cookieConsent.subscribe('cookie3', 'disable', function (data) {});
 
+// Subscribe to the store change event. The latest consent store object is passed as parameter to the callback function
+var event = subscribeToConsentStore(function (store){});
+
 // Unsubscribe events
 event.unsubscribe();
 

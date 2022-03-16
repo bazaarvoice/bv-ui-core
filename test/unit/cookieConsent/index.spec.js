@@ -84,7 +84,36 @@ describe('lib/cookieConsent', function () {
     function test5 () {
       return cookieConsent.subscribe('key1', 'enable', function () {});
     }
-
     expect(test5()).to.be.an('object');
+  });
+  it('cookieConsent.subscribeToConsentStore', function () {
+    // Error checks - Correct errors are thrown
+    function test6 () {
+      cookieConsent.subscribeToConsentStore('Callback')
+    }
+    expect(test6).to.throw(TypeError,'cookieConsent (subscribeToConsentStore): callback should be a function.');
+    // Subscriber creation test - The subscription gets created correctly
+    function test7 () {
+      return cookieConsent.subscribeToConsentStore(function () {});
+    }
+    expect(test7()).to.be.an('object');
+
+    // Event listener test - The subscriber callback fires on store change
+    var fn = sinon.spy()
+    function test8 () {
+      cookieConsent.subscribeToConsentStore(fn)
+      cookieConsent.setConsent({ cookie4: true })
+    }
+    test8 ()
+    sinon.assert.calledOnce(fn)
+    // Unsubscribe test - Should be able to unsubscribe successfully (Should not fire the callback after unsubscription)
+    var fn2 = sinon.spy()
+    function test9 () {
+      var event = cookieConsent.subscribeToConsentStore(fn2)
+      event.unsubscribe()
+      cookieConsent.setConsent({ cookie5: true })
+    } 
+    test9()
+    sinon.assert.notCalled(fn2)
   });
 });
