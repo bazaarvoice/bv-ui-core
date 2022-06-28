@@ -1,0 +1,30 @@
+apiVersion: backstage.io/v1alpha1
+kind: Component
+metadata:
+  name: bv-ui-core
+  github.com/project-slug: bazaarvoice/bv-ui-core
+  description: This project provides a central location for common Bazaarvoice UI code. It is intended to be installed into a project via NPM. Individual modules are authored as CommonJS modules, to be consumed by Webpack or another build tool that can ingest CommonJS.
+  annotations:
+    backstage.io/techdocs-ref: dir:.
+    github.com/project-slug: bazaarvoice/bv-ui-core
+  links:
+    - url: https://bazaarvoice.slack.com/app_redirect?channel=sme-swat
+      title: Slack channel
+      icon: send
+    - url: https://sonarqube.qa.bazaarvoice.com/dashboard?id=bazaarvoice_bv-ui-core
+      title: SonarQube
+      icon: dashboard
+  labels:
+    tech: javascript
+  tags:
+    - javascript
+    - nodejs
+spec:
+  type: library
+  system: swat
+  lifecycle: production
+  owner: swat
+
+
+
+

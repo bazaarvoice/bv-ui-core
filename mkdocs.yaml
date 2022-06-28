@@ -1,0 +1,5 @@
+site_name: bv-ui-core
+docs_dir: lib
+plugins:
+  - techdocs-core
+repo_url: https://github.com/bazaarvoice/bv-ui-core/
