@@ -20,12 +20,10 @@ module.exports = function (config) {
         ui: 'bdd'
       }
     },
-
     // list of files / patterns to load in the browser.
     files: [
       // We need the polyfill for testing es6 modules.
       'node_modules/babel-polyfill/dist/polyfill.js',
-
       // Loaded into the browser test page.
       'test/unit/mochaInit.js',
       'test/unit/**/*.spec.js',
@@ -109,10 +107,21 @@ module.exports = function (config) {
     // Enable / disable watching file and executing tests whenever any file
     // changes.
     autoWatch: true,
+    customLaunchers: {
+      ChromeHeadless: {
+        base: 'Chrome',
+        flags: [
+          '--no-sandbox',
+          '--headless',
+          '--disable-gpu',
+          '--remote-debugging-port=9222'
+        ]
+      }
+    },
 
     // Start these browsers.
     // See: https://npmjs.org/browse/keyword/karma-launcher
-    browsers: ['Chrome'],
+    browsers: ['ChromeHeadless'],
 
     // Continuous Integration mode. If true, Karma captures browsers, runs the
     // tests and exits.
