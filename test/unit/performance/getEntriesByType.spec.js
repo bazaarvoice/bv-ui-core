@@ -17,7 +17,6 @@ describe('lib/performance/getEntriesByType', function () {
 
   it('returns an array of all matching performance marks by type', function () {
     var result = perfGetEntriesByType.getEntriesByType('mark');
-    console.log(result)
     // Test 1: it returns an array.
     expect(result).to.be.an('array');
 
