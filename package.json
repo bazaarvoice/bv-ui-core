@@ -52,9 +52,6 @@
     }
   },
   "dependencies": {
-    "@formatjs/intl-utils": "^3.8.4",
-    "formatjs": "^0.1.1",
-    "intl": "^1.2.5",
     "whatwg-fetch": "^2.0.3"
   }
 }
