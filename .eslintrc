@@ -1,7 +1,8 @@
 {
   "env": {
     "node": true,
-    "browser": true
+    "browser": true,
+    "es6": true
   },
   "rules": {
     "brace-style": [2, "stroustrup", { "allowSingleLine": true }],
