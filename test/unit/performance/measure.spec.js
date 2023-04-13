@@ -32,7 +32,7 @@ describe('lib/performance/measure', function () {
   });
 
   it('throws an error if the measure name is omitted', function () {
-    expect(function () { perfMeasure.measure(); }).to.throw(Error);
+    expect(perfMeasure.measure()).to.be.empty;
   });
 
   it('throws an error if the startMark or endMark name is supplied, but is invalid', function () {

@@ -1,6 +1,6 @@
 {
   "name": "bv-ui-core",
-  "version": "2.6.0",
+  "version": "2.7.0",
   "license": "Apache 2.0",
   "description": "Bazaarvoice UI-related JavaScript",
   "repository": {
@@ -12,7 +12,7 @@
   },
   "scripts": {
     "lint": "eslint karma.conf.js lib test",
-    "test": "./node_modules/karma/bin/karma start --single-run --browsers PhantomJS",
+    "test": "./node_modules/karma/bin/karma start --single-run --browsers ChromeHeadless",
     "dev": "./node_modules/karma/bin/karma start --browsers Chrome"
   },
   "devDependencies": {
@@ -28,7 +28,7 @@
     "json-loader": "^0.5.7",
     "karma": "^3.0.0",
     "karma-chai": "^0.1.0",
-    "karma-chrome-launcher": "2.0.0",
+    "karma-chrome-launcher": "^2.0.0",
     "karma-coverage": "^1.1.2",
     "karma-firefox-launcher": "^1.1.0",
     "karma-htmlfile-reporter": "^0.3.6",
