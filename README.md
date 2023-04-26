@@ -56,6 +56,7 @@ module's directory.
 - [pixelsDisplayed](./lib/pixelsDisplayed)
 - [staticAssetLoader](./lib/staticAssetLoader)
 - [waitForBody](./lib/waitForBody)
+- [queryShadowDom](./lib/queryShadowDom)
 
 [1]: ./CONTRIBUTING.md
 [2]: https://nodejs.org/download/
