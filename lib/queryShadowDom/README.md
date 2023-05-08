@@ -8,8 +8,8 @@ This file exposes multiple functions that can be used to query elements within t
 ```
 | Parameter | Type     | Description                |
 | :-------- | :------- | :------------------------- |
-| `element` | `DOM Element` | **Required**. Root element to query for particular elements. |
-| `matchSelector` | `string` | **Required**. Criteria to select the elements in the dom starting with element as root element. |
+| `node` | `DOM Element` | **Required**. Root node to query for particular elements. |
+| `matchSelector` | `string` | **Required**. Criteria to select the elements in the dom starting with node as root element. |
 
 
 ```javascript
@@ -18,7 +18,7 @@ This file exposes multiple functions that can be used to query elements within t
 ```
 | Parameter | Type     | Description                |
 | :-------- | :------- | :------------------------- |
-| `rootElement` | `DOM Element` | **Required**. The root element from which to start searching for shadow roots. |
+| `node` | `DOM Element` | **Required**. The root node from which to start searching for shadow roots. |
 
 ```javascript
   filterShadowHosts
@@ -34,8 +34,8 @@ This file exposes multiple functions that can be used to query elements within t
 ```
 | Parameter | Type     | Description                |
 | :-------- | :------- | :------------------------- |
-| `shadowElement` | `DOM Element` | **Required**. A DOM element that has a shadow root. |
-| `matchSelector` | `string` | **Required**. Criteria to select the elements in the dom starting with element as root element. |
+| `node` | `DOM Element` | **Required**. A DOM node that has a shadow root. |
+| `matchSelector` | `string` | **Required**. Criteria to select the elements in the dom starting with node as root element. |
 
 ## Usage
 
