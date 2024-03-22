@@ -117,5 +117,41 @@ describe('BvFetch', function () {
         })
         .catch(done);
   });
+
+  it('should not cache response when there is an error', function (done) {
+    const url = 'https://jsonplaceholder.typicode.com/todos';
+    const options = {};
+
+    // Define errorHandler directly in bvFetchInstance
+    bvFetchInstance.errorHandler = (res) => {
+      throw new Error('Error handler error');
+    };
+  
+    // Mocking network response
+    const mockResponse = new Response('Mock Data', {
+      status: 200,
+      statusText: 'OK',
+      headers: {
+        'Cache-Control': 'max-age=3600',
+        'X-Cached-Time': Date.now()
+      }
+    });
+  
+    // Stubbing fetch to resolve with mockResponse
+    sinon.stub(window, 'fetch').resolves(mockResponse);
+  
+    bvFetchInstance.bvFetchFunc(url, options)
+        .catch(error => {
+          // Check if error is thrown
+          expect(error.message).to.equal('Error handler error');
+          // Check if response is not cached
+          const cachedResponse = this.cacheStorage.get(url);
+          expect(cachedResponse).to.be.undefined;
+          // Restore stubs
+          window.fetch.restore();
+          done();
+        });
+  });
+
   
 });
