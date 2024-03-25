@@ -5,14 +5,24 @@ The BvFetch module provides methods to cache duplicate API calls and interact wi
 
 ## The following methods are provided:
 
-`bvFetchFunc(url: string, options: object): Promise<Response>`
-This function makes API calls and caches their responses. It accepts a URL string and optional request options object. Caches the api response and returns a Promise that resolves with the API response.
+## BvFetch Parameters
+`toCache (Function):` A function that takes the API response JSON as input and returns a boolean indicating whether to cache the response or not. This allows you to implement custom logic based on the response content. If caching is desired, the function should return true; otherwise, false.
 
-`generateCacheKey(url: string, options: object): string`
-This function generates a unique cache key for the given URL and options object. It's used internally to manage cache entries.
+`cacheName (String):` Optional. Specifies the name of the cache to be used. If not provided, the default cache name 'bvCache' will be used.
 
-`flushCache(): Promise<void>`
-This function clears all cache entries stored in the cache storage.
+## bvFetchFunc Method Parameters
+`url (String):` The URL of the API endpoint to fetch data from.
+
+`options (Object):` Optional request options such as headers, method, etc., as supported by the Fetch API.
+
+## bvFetchFunc Return Value
+`Promise<Response>:` A promise that resolves to the API response. If the response is cached, it returns the cached response. Otherwise, it fetches data from the API endpoint, caches the response according to the caching logic, and returns the fetched response.
+
+## flushCache Method Parameters
+This method takes no parameters.
+
+## flushCache Return Value
+`Promise<void>:` A promise indicating the completion of cache flush operation.
 
 
 ## Usage with of `BvFetch`:

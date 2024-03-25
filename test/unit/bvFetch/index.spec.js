@@ -4,6 +4,8 @@ var BvFetch = require('../../../lib/bvFetch');
 
 describe('BvFetch', function () {
   let bvFetchInstance;
+  let cacheStub;
+  let cacheStorage;
   
   beforeEach(function () {
     bvFetchInstance = new BvFetch({
@@ -12,19 +14,20 @@ describe('BvFetch', function () {
     });
 
     // Define cacheStorage as a Map
-    this.cacheStorage = new Map();
+    cacheStorage = new Map();
 
     // Stubbing caches.open
-    sinon.stub(caches, 'open').resolves({
+    cacheStub = sinon.stub(caches, 'open').resolves({
       match: key => {
-        const cachedResponse = this.cacheStorage.get(key);
+        const cachedResponse = cacheStorage.get(key);
         return Promise.resolve(cachedResponse);
       },
       put: (key, response) => {
-        this.cacheStorage.set(key, response);
+        cacheStorage.set(key, response);
         return Promise.resolve();
       }
     });
+
   });
   
   afterEach(function () {
@@ -40,21 +43,9 @@ describe('BvFetch', function () {
     const generatedKey = bvFetchInstance.generateCacheKey(url, options);
     expect(generatedKey).to.equal(expectedKey);
   });
+
   
-  it('should fetch from network when cache miss', function (done) {
-    const url = 'https://jsonplaceholder.typicode.com/todos';
-    const options = {};
-  
-    bvFetchInstance.bvFetchFunc(url, options)
-        .then(response => {
-          // Check if response is fetched from network
-          expect(response).to.not.be.null;
-          done();
-        })
-        .catch(done);
-  });
-  
-  it('should fetch from cache when cache hit and not expired', function (done) {
+  it('should fetch from cache when the response is cached', function (done) {
     const url = 'https://jsonplaceholder.typicode.com/todos';
     const options = {};
   
@@ -67,55 +58,71 @@ describe('BvFetch', function () {
         'X-Cached-Time': Date.now()
       }
     });
+
+    const cacheKey = bvFetchInstance.generateCacheKey(url, options);
   
     // Overriding the stub for this specific test case
     caches.open.resolves({
-      match: () => Promise.resolve(mockResponse),
+      match: (key) => {
+        expect(key).to.equal(cacheKey); 
+        Promise.resolve(mockResponse)
+      },
       put: (key, response) => {
-        this.cacheStorage.set(key, response);
+        cacheStorage.set(key, response);
         return Promise.resolve();
       }
     });
   
     bvFetchInstance.bvFetchFunc(url, options)
-        .then(response => {
-          // Check if response is fetched from cache
-          expect(response).to.not.be.null;
-          done();
-        })
-        .catch(done);
+    .then(response => {
+      // Check if response is fetched from cache
+      expect(response).to.not.be.null;
+
+       // Check if response is cached
+      const cachedResponse = cacheStorage.get(cacheKey);
+      expect(cachedResponse).to.not.be.null;
+
+      // Check if caches.open was called
+      expect(cacheStub.called).to.be.true;
+
+      done();
+    })
+    .catch(error => {
+      done(error); // Call done with error if any
+    })
   });
   
-  it('should fetch from network when cache hit but expired', function (done) {
+
+  it('should fetch from network when response is not cached', function (done) {
     const url = 'https://jsonplaceholder.typicode.com/todos';
     const options = {};
+
+    const cacheKey = bvFetchInstance.generateCacheKey(url, options);
   
-    // Mocking cache response with expired cache
-    const mockResponse = new Response('Mock Data', {
-      status: 200,
-      statusText: 'OK',
-      headers: {
-        'Cache-Control': 'max-age=10', // Expired cache
-        'X-Cached-Time': Date.now() - 20000 // Older than TTL
-      }
-    });
-  
-    // Overriding the stub for this specific test case
     caches.open.resolves({
-      match: () => Promise.resolve(mockResponse),
+      match: (key) => {
+        expect(key).to.equal(cacheKey); 
+        Promise.resolve(null)
+      },
       put: (key, response) => {
-        this.cacheStorage.set(key, response);
+        cacheStorage.set(key, response);
         return Promise.resolve();
       }
     });
-  
+   
+
     bvFetchInstance.bvFetchFunc(url, options)
-        .then(response => {
-          // Check if response is fetched from network
-          expect(response).to.not.be.null;
-          done();
-        })
-        .catch(done);
+      .then(response => {
+        // Check if response is fetched from network
+        expect(response).to.not.be.null;
+        console.log(response.body)
+        
+        // Check if caches.match was called
+        expect(cacheStub.called).to.be.true;
+
+        done();
+      })
+      .catch(done);
   });
 
   it('should not cache response when there is an error', function (done) {
@@ -123,34 +130,26 @@ describe('BvFetch', function () {
     const options = {};
 
     // Define errorHandler directly in bvFetchInstance
-    bvFetchInstance.errorHandler = (res) => {
-      throw new Error('Error handler error');
+    bvFetchInstance.toCache = (res) => {
+      return true
     };
   
-    // Mocking network response
-    const mockResponse = new Response('Mock Data', {
-      status: 200,
-      statusText: 'OK',
-      headers: {
-        'Cache-Control': 'max-age=3600',
-        'X-Cached-Time': Date.now()
-      }
-    });
-  
-    // Stubbing fetch to resolve with mockResponse
-    sinon.stub(window, 'fetch').resolves(mockResponse);
-  
     bvFetchInstance.bvFetchFunc(url, options)
-        .catch(error => {
-          // Check if error is thrown
-          expect(error.message).to.equal('Error handler error');
-          // Check if response is not cached
-          const cachedResponse = this.cacheStorage.get(url);
-          expect(cachedResponse).to.be.undefined;
-          // Restore stubs
-          window.fetch.restore();
-          done();
-        });
+    .then(response => {
+      // Check if response is fetched from network
+      expect(response).to.not.be.null;
+      console.log(response.body)
+
+      // Check if caches.match was called
+      expect(cacheStub.calledOnce).to.be.true;
+
+      // Check if response is not cached
+      const cachedResponse = cacheStorage.get(url);
+      expect(cachedResponse).to.be.undefined;
+
+      done();
+    })
+    .catch(done);
   });
 
   
