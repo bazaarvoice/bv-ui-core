@@ -6,7 +6,7 @@ The BvFetch module provides methods to cache duplicate API calls and interact wi
 ## The following methods are provided:
 
 ## BvFetch Parameters
-`toCache (Function):` A function that takes the API response JSON as input and returns a boolean indicating whether to cache the response or not. This allows you to implement custom logic based on the response content. If caching is desired, the function should return true; otherwise, false.
+`shouldCache (Function):` A function that takes the API response JSON as input and returns a boolean indicating whether to cache the response or not. This allows you to implement custom logic based on the response content. If caching is desired, the function should return true; otherwise, false.
 
 `cacheName (String):` Optional. Specifies the name of the cache to be used. If not provided, the default cache name 'bvCache' will be used.
 
