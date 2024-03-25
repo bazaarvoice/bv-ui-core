@@ -130,7 +130,7 @@ describe('BvFetch', function () {
     const options = {};
 
     // Define errorHandler directly in bvFetchInstance
-    bvFetchInstance.canBeCached = (res) => {
+    bvFetchInstance.shouldCache = (res) => {
       return false
     };
   
