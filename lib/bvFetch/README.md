@@ -32,7 +32,7 @@ var BvFetch = require('bv-ui-core/lib/bvFetch')
 
 // Initialize BV Fetch instance
 const bvFetch = new BVFetch({
-  toCache: toCache, // optional
+  canBeCached: canBeCached, // optional
   cacheName: "bvCache" // optional, default is "bvCache"
 });
 
