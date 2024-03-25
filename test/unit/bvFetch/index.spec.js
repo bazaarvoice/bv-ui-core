@@ -9,7 +9,7 @@ describe('BvFetch', function () {
   
   beforeEach(function () {
     bvFetchInstance = new BvFetch({
-      errorHandler: null,
+      shouldCache: null,
       cacheName: 'testCache'
     });
 
@@ -129,7 +129,7 @@ describe('BvFetch', function () {
     const url = 'https://jsonplaceholder.typicode.com/todos';
     const options = {};
 
-    // Define errorHandler directly in bvFetchInstance
+    // Define shouldCache directly in bvFetchInstance
     bvFetchInstance.shouldCache = (res) => {
       return false
     };
