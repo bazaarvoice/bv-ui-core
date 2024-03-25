@@ -38,6 +38,7 @@ module's directory.
 ## Modules
 
 - [body](./lib/body)
+- [bvFetch](./lib/bvFetch/)
 - [checkHighContrast](./lib/checkHighContrast)
 - [cookie](./lib/cookie)
 - [cookieConsent](./lib/cookieConsent)
