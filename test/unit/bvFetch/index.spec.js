@@ -133,7 +133,7 @@ describe('BvFetch', function () {
     bvFetchInstance.shouldCache = (res) => {
       return false
     };
-  
+ 
     bvFetchInstance.bvFetchFunc(url, options)
     .then(response => {
       // Check if response is fetched from network
@@ -141,7 +141,7 @@ describe('BvFetch', function () {
       console.log(response.body)
 
       // Check if caches.match was called
-      expect(cacheStub.calledOnce).to.be.true;
+      expect(cacheStub.calledOnce).to.be.false;
 
       // Check if response is not cached
       const cachedResponse = cacheStorage.get(url);

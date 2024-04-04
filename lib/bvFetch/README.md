@@ -18,6 +18,25 @@ The BvFetch module provides methods to cache duplicate API calls and interact wi
 ## bvFetchFunc Return Value
 `Promise<Response>:` A promise that resolves to the API response. If the response is cached, it returns the cached response. Otherwise, it fetches data from the API endpoint, caches the response according to the caching logic, and returns the fetched response.
 
+## generateCacheKey Method Parameters:
+`url (String):` The URL of the API endpoint.
+`options (Object):` Optional request options.
+
+## generateCacheKey Return Value:
+`string:` The generated cache key.
+
+## updateCacheSize Method Parameters:
+`sizeChange (number):` The change in cache size.
+
+## updateCacheSize Return Value: 
+This function does not return anything.
+
+## retrieveCacheSize Method Parameters: 
+This function does not accept any parameters.
+
+## retrieveCacheSize Return Value:
+Promise<number>: A promise that resolves to the retrieved cache size.
+
 ## flushCache Method Parameters
 This method takes no parameters.
 
