@@ -10,6 +10,8 @@ The BvFetch module provides methods to cache duplicate API calls and interact wi
 
 `cacheName (String):` Optional. Specifies the name of the cache to be used. If not provided, the default cache name 'bvCache' will be used.
 
+`cacheLimit (Integer)`: Optional. Specifies the cache size limit for the cache storage. Its value should be in MB. Default value is 10 MB.
+
 ## bvFetchFunc Method Parameters
 `url (String):` The URL of the API endpoint to fetch data from.
 
@@ -26,7 +28,7 @@ The BvFetch module provides methods to cache duplicate API calls and interact wi
 `string:` The generated cache key.
 
 ## updateCacheSize Method Parameters:
-`sizeChange (number):` The change in cache size.
+`responseSize (number):` The change in cache size.
 
 ## updateCacheSize Return Value: 
 This function does not return anything.
@@ -36,6 +38,12 @@ This function does not accept any parameters.
 
 ## retrieveCacheSize Return Value:
 Promise<number>: A promise that resolves to the retrieved cache size.
+
+## cleanupExpiredCache Method Parameters: 
+This function does not accept any parameters.
+
+## cleanupExpiredCache Return Value:
+This function does not return anything.
 
 ## flushCache Method Parameters
 This method takes no parameters.
