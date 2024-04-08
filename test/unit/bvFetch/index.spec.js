@@ -65,7 +65,7 @@ describe('BvFetch', function () {
     caches.open.resolves({
       match: (key) => {
         expect(key).to.equal(cacheKey); 
-        Promise.resolve(mockResponse)
+        return Promise.resolve(mockResponse)
       },
       put: (key, response) => {
         cacheStorage.set(key, response);
@@ -73,6 +73,10 @@ describe('BvFetch', function () {
       }
     });
   
+    // Simulate that the response is cached
+    bvFetchInstance.cachedUrls.add(cacheKey);
+    
+    // Call the function under test
     bvFetchInstance.bvFetchFunc(url, options)
     .then(response => {
       // Check if response is fetched from cache
@@ -91,19 +95,15 @@ describe('BvFetch', function () {
       done(error); // Call done with error if any
     })
   });
-  
 
+  
   it('should fetch from network when response is not cached', function (done) {
     const url = 'https://jsonplaceholder.typicode.com/todos';
     const options = {};
 
-    const cacheKey = bvFetchInstance.generateCacheKey(url, options);
-  
+    const matchSpy = sinon.spy();
     caches.open.resolves({
-      match: (key) => {
-        expect(key).to.equal(cacheKey); 
-        Promise.resolve(null)
-      },
+      match: matchSpy,
       put: (key, response) => {
         cacheStorage.set(key, response);
         return Promise.resolve();
@@ -118,7 +118,7 @@ describe('BvFetch', function () {
         console.log(response.body)
         
         // Check if caches.match was called
-        expect(cacheStub.called).to.be.true;
+        expect(matchSpy.called).to.be.false;
 
         done();
       })
@@ -150,7 +150,6 @@ describe('BvFetch', function () {
       done();
     })
     .catch(done);
-  });
-
+  }); 
   
 });
