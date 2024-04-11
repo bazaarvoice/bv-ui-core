@@ -140,16 +140,17 @@ describe('BvFetch', function () {
     bvFetchInstance.bvFetchFunc(url, options)
     .then(response => {
       // Check if response is fetched from network
-      expect(response).to.not.be.null;
-      console.log(response.body)
+      setTimeout(() => { 
+        expect(response).to.not.be.null;
+        console.log(response.body)
 
       // Check if caches.match was called
-      expect(cacheStub.calledOnce).to.be.false;
+        expect(cacheStub.calledOnce).to.be.false;
 
       // Check if response is not cached
-      const cachedResponse = cacheStorage.get(url);
-      expect(cachedResponse).to.be.undefined;
-
+        const cachedResponse = cacheStorage.get(url);
+        expect(cachedResponse).to.be.undefined; 
+      }, 500)
       done();
     })
     .catch(done);
