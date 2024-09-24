@@ -131,4 +131,63 @@ getStatistics({
 
 ---
 
+---
+
+### swatGetStatistics
+
+Returns the statistics for a given list of products. API call can be made to apps.bazaarvoice.com or api.bazaarvoice.com
+
+#### Syntax
+
+```javascript
+api.get('swatStatistics', options)
+
+// or
+const getStatistics = require('bv-ui-core/lib/api/swatStatistics')
+swatGetStatistics(options)
+```
+
+#### Parameters
+
+##### options
+
+An object with key/value pairs of inputs. Most values are required.
+
+##### options.productIds
+
+An array of product ids to query for. A warning will be emitted if over 100 products are requested.
+
+##### options.useBackend
+A boolean value. If set to true, the call will be made to apps.bazaarvoice.com. If set to false, the call will be made to api.bazaarvoice.com.
+
+##### options.environment
+
+A string representing the data environment. Accepts `qa`, `staging` or
+`production`.
+
+##### options.key
+
+Your api key.
+
+##### options.type
+
+A string representing the type of statistics you want to query for. Currently
+accepts `Reviews` or `NativeReviews`.
+
+Using `Reviews` returns statistics for all content, including syndicated
+content (if enabled on your API key). If you only want statistics for reviews 
+you own that were written for the products specified, use `NativeReviews` 
+instead.
+
+##### options.filters (optional)
+
+An object representing filters keyed by the name of the filter. `ContentLocale `
+can be provided to specify a locale subset for the statistics. If no
+`ContentLocale` is provided, will return the global statistics for each product
+in the query.
+
+
+
+----
+
 [0]: https://developer.bazaarvoice.com/docs/read/conversations
