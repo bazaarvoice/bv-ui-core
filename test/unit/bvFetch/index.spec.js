@@ -39,7 +39,7 @@ describe('BvFetch', function () {
   it('should generate correct cache key', function () {
     const url = 'https://jsonplaceholder.typicode.com/todos';
     const options = {};
-    const expectedKey = 'https://jsonplaceholder.typicode.com/todos';
+    const expectedKey = new Request(url, options)
     const generatedKey = bvFetchInstance.generateCacheKey(url, options);
     expect(generatedKey).to.equal(expectedKey);
   });
@@ -74,7 +74,7 @@ describe('BvFetch', function () {
     });
   
     // Simulate that the response is cached
-    bvFetchInstance.cachedUrls.add(cacheKey);
+    bvFetchInstance.cachedRequests.add(cacheKey);
     
     // Call the function under test
     bvFetchInstance.bvFetchFunc(url, options)

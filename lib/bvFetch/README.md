@@ -21,13 +21,13 @@ The BvFetch module provides methods to cache duplicate API calls and interact wi
 `url (String):` The URL of the API endpoint.
 `options (Object):` Optional request options.
 ## generateCacheKey Return Value:
-`string:` The generated cache key.
+`Request:` The generated cache key.
 
-## retrieveCachedUrls Method
-Retrieves cached URLs from the cache storage associated with the provided cache name.
-## retrieveCachedUrls Parameters
+## retrievecachedRequests Method
+Retrieves cached Requests from the cache storage associated with the provided cache name.
+## retrievecachedRequests Parameters
 This method takes no parameters.
-## retrieveCachedUrls Return Value
+## retrievecachedRequests Return Value
 `void:` This method does not return anything.
 
 ## fetchDataAndCache Method
