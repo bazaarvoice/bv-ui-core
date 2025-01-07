@@ -38,16 +38,27 @@ describe('BvFetch', function () {
   
   it('should generate correct cache key', function () {
     const url = 'https://jsonplaceholder.typicode.com/todos';
-    const options = {};
+    const options = {
+      method: 'GET',
+      headers: {
+        'X-Header-1': 'Value 1',
+      }
+    };
     const expectedKey = new Request(url, options)
     const generatedKey = bvFetchInstance.generateCacheKey(url, options);
-    expect(generatedKey).to.equal(expectedKey);
+    expect(generatedKey.url).to.equal(expectedKey.url);
+    expect(generatedKey.headers).to.deep.equal(expectedKey.headers);
   });
 
   
   it('should fetch from cache when the response is cached', function (done) {
     const url = 'https://jsonplaceholder.typicode.com/todos';
-    const options = {};
+    const options = {
+      method: 'GET',
+      headers: {
+        'X-Header-1': 'Value 1',
+      }
+    };
   
     // Mocking cache response
     const mockResponse = new Response('Mock Data', {
@@ -64,7 +75,8 @@ describe('BvFetch', function () {
     // Overriding the stub for this specific test case
     caches.open.resolves({
       match: (key) => {
-        expect(key).to.equal(cacheKey); 
+        expect(key.url).to.equal(cacheKey.url); 
+        expect(key.headers).to.deep.equal(cacheKey.headers);
         return Promise.resolve(mockResponse)
       },
       put: (key, response) => {
