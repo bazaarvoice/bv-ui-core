@@ -9,6 +9,8 @@ The BvFetch module provides methods to cache duplicate API calls and interact wi
 `shouldCache (Function):` A function that takes the API response JSON as input and returns a boolean indicating whether to cache the response or not. This allows you to implement custom logic based on the response content. If caching is desired, the function should return true; otherwise, false.
 `cacheName (String):` Optional. Specifies the name of the cache to be used. If not provided, the default cache name 'bvCache' will be used.
 `cacheLimit (Integer)`: Optional. Specifies the cache size limit for the cache storage. Its value should be in MB. Default value is 10 MB.
+`excludeHeaders (Array[String])`: Includes the list of headers that are excluded from the cacheKey
+
 
 ## bvFetchFunc Method Parameters
 `url (String):` The URL of the API endpoint to fetch data from.
@@ -17,11 +19,16 @@ The BvFetch module provides methods to cache duplicate API calls and interact wi
 ## bvFetchFunc Return Value
 `Promise<Response>:` A promise that resolves to the API response. If the response is cached, it returns the cached response. Otherwise, it fetches data from the API endpoint, caches the response according to the caching logic, and returns the fetched response.
 
-## generateCacheKey Method Parameters:
-`url (String):` The URL of the API endpoint.
-`options (Object):` Optional request options.
-## generateCacheKey Return Value:
-`Request:` The generated cache key.
+## generateCacheKey Method
+
+Generates a cache key as a Request object for a given URL and options, filtering out any headers specified in `excludeHeaders`.
+
+**Parameters:**
+- `url (String)`: The URL of the API endpoint.
+- `options (Object)`: *(Optional)* Request options (e.g., headers, method, etc.).
+
+**Returns:**  
+`Request`: The generated Request object to be used as a cache key.
 
 ## retrievecachedRequests Method
 Retrieves cached Requests from the cache storage associated with the provided cache name.
