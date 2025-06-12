@@ -84,8 +84,10 @@ var BvFetch = require('bv-ui-core/lib/bvFetch')
 
 // Initialize BV Fetch instance
 const bvFetch = new BVFetch({
-  canBeCached: canBeCached, // optional
-  cacheName: "bvCache" // optional, default is "bvCache"
+   shouldCache: function(responseJson) => { /* return true or false */ }, // optional, callback function to check if the response is cachable
+   cacheName: "bvCache" // optional, default is "bvCache"
+   cacheLimit: 10, // optional but default is 10
+   excludeHeaders: [], // optional, list of headers to be excluded from cache
 });
 
 // Make API calls using bvFetchFunc method
