@@ -66,7 +66,7 @@ describe('BvFetch', function () {
       statusText: 'OK',
       headers: {
         'Cache-Control': 'max-age=3600',
-        'X-Cached-Time': Date.now()
+        'X-Bazaarvoice-Cached-Time': Date.now()
       }
     });
 
