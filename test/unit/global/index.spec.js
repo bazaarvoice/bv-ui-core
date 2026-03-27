@@ -24,4 +24,23 @@ describe('lib/global', function () {
     }
   });
 
+  it('should not wrap window in a Proxy when globalObj is window even if __esModule is set', function () {
+    if (typeof window !== 'undefined') {
+      window.__esModule = true;
+      var result = require('../../../lib/global');
+      // When globalObj === window, the proxy branch should be skipped,
+      // so the result should be strictly equal to window.
+      expect(result).to.equal(window);
+      delete window.__esModule;
+    }
+  });
+
+  it('should return the global object directly when __esModule is not set', function () {
+    if (typeof window !== 'undefined') {
+      delete window.__esModule;
+      var result = require('../../../lib/global');
+      expect(result).to.equal(window);
+    }
+  });
+
 });
