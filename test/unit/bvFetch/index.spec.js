@@ -168,6 +168,26 @@ describe('BvFetch', function () {
     .catch(done);
   });
 
+  it('should handle a 204 response without a JSON parse error', function (done) {
+    const cacheKey = bvFetchInstance.generateCacheKey('https://example.com/empty', {});
+    const shouldCache = sinon.spy();
+    const response = new Response(null, {
+      status: 204,
+      headers: {
+        'Cache-Control': 'max-age=3600'
+      }
+    });
+
+    bvFetchInstance.shouldCache = shouldCache;
+    expect(() => bvFetchInstance.cacheData(response, cacheKey)).to.not.throw();
+
+    setTimeout(() => {
+      expect(shouldCache.called).to.be.false;
+      expect(cacheStorage.get(cacheKey)).to.be.undefined;
+      done();
+    }, 0);
+  });
+
   it('should delete cache when size is greater than 10 MB', function (done) {
     // Mock cache entries exceeding 10 MB
     const mockCacheEntries = [
